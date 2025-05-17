@@ -6,7 +6,7 @@ export const AppLayout = () => {
   return (
     <div className="flex h-screen w-full">
       <Sidebar />
-      <main className="grow bg-zinc-300">
+      <main className="h-screen grow bg-zinc-100 p-10">
         <Outlet />
       </main>
     </div>
