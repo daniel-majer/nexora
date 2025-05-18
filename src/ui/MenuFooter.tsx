@@ -9,7 +9,7 @@ export const MenuFooter = () => {
           <UserIcon className="dark:text-purple-950" />
         </div>
         <div>
-          <span className="block font-bold text-purple-950 transition duration-500 dark:text-purple-600">
+          <span className="block font-bold text-purple-950 transition duration-500 dark:text-purple-400">
             Daniel Majer
           </span>
           <span className="font-light text-zinc-500 transition duration-500 dark:text-zinc-200">

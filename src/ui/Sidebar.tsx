@@ -6,13 +6,13 @@ import { DarkModeButton } from "./DarkMode";
 
 export const Sidebar = () => {
   return (
-    <aside className="flex basis-80 flex-col justify-between px-4 py-10 transition duration-500 dark:bg-zinc-900 dark:text-white">
+    <div className="flex h-screen w-80 flex-col justify-between gap-6 px-4 py-10 transition duration-500 dark:text-white">
       <div>
         <MenuLogo />
         <MenuContent />
         <DarkModeButton />
       </div>
       <MenuFooter />
-    </aside>
+    </div>
   );
 };

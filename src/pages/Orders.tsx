@@ -1,5 +1,6 @@
-import React from 'react'
+import React from "react";
+import { Heading } from "../ui/Heading";
 
 export const Orders = () => {
-  return <div>Orders</div>
-}
+  return <Heading level="h1">Orders List</Heading>;
+};
