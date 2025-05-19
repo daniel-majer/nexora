@@ -1,8 +1,7 @@
-import React from "react";
-import type { ChildrenProp, Product } from "../types/types";
-import { Spinner } from "./Spinner";
 import clsx from "clsx";
-import { productHeader } from "../data/table-headers";
+import React from "react";
+import type { ChildrenProp } from "../types/types";
+import { Spinner } from "./Spinner";
 
 interface TableProps {
   columns: string;
