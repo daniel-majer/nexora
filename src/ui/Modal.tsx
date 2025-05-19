@@ -1,5 +1,11 @@
-import React, { cloneElement, use, type ButtonHTMLAttributes } from "react";
+import React, {
+  cloneElement,
+  use,
+  type ButtonHTMLAttributes,
+  type MouseEventHandler,
+} from "react";
 import { createPortal } from "react-dom";
+import { useOutsideClose } from "../hooks/useOutsideClose";
 
 type ModalContextType = {
   openName: string | null;
@@ -51,14 +57,19 @@ const Window = ({
   children: React.ReactNode;
   name: string;
 }) => {
-  const { openName } = useModal();
+  const { openName, setOpenName } = useModal();
+  const { modalRef } = useOutsideClose({ setOpenName });
 
   if (openName !== name) return null;
 
   return createPortal(
     <div>
+      {/* Overlay */}
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-xs">
-        <div className="min-h-96 w-full max-w-3xl rounded-lg bg-white p-4 shadow-lg dark:bg-zinc-800">
+        <div
+          ref={modalRef}
+          className="min-h-96 w-full max-w-3xl rounded-lg bg-white p-4 shadow-lg dark:bg-zinc-800"
+        >
           {children}
         </div>
       </div>
