@@ -1,8 +1,8 @@
 import React from "react";
-import Table from "./Table";
-import type { Product } from "../types/types";
+import Table from "../../ui/Table";
+import type { Product } from "../../types/types";
 import { EllipsisVerticalIcon, ImageIcon } from "lucide-react";
-import Badge from "./Badge";
+import Badge from "../../ui/Badge";
 
 export const ProductRow = ({ product }: { product: Product }) => {
   const { name, imageUrl, category, stock, price, isActive } = product;

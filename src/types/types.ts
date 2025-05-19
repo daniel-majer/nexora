@@ -18,4 +18,57 @@ export const productSchema = z.object({
   isActive: z.boolean(),
 });
 
+export const customerSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  email: z.string().email(),
+});
+
+export const employeeSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  email: z.string().email(),
+  position: z.string(),
+  phone: z.string(),
+  hired: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format, expected YYYY-MM-DD"),
+  birth: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format, expected YYYY-MM-DD"),
+  department: z.string(),
+});
+
+export const orderItemSchema = z.object({
+  id: z.number(),
+  orderId: z.number(),
+  productId: z.number(),
+  quantity: z.number(),
+  unitPrice: z.number(),
+  product: productSchema.optional(),
+});
+
+export const orderSchema = z.object({
+  id: z.number(),
+  orderDate: z.date(),
+  customerId: z.number(),
+  employeeId: z.number().nullable(),
+  status: z.enum([
+    "pending",
+    "processing",
+    "shipped",
+    "delivered",
+    "cancelled",
+  ]),
+  totalAmount: z.number(),
+  shippedDate: z.coerce.date().nullable(),
+  customers: customerSchema.optional(),
+  employees: employeeSchema.optional(),
+  orderItems: z.array(orderItemSchema).optional(),
+  paymentMethodId: z.number(),
+  deliveryMethodId: z.number(),
+});
+
+export type Order = z.infer<typeof orderSchema>;
 export type Product = z.infer<typeof productSchema>;
+export type Employees = z.infer<typeof employeeSchema>;

@@ -2,6 +2,7 @@ import React from "react";
 import type { ChildrenProp, Product } from "../types/types";
 import { Spinner } from "./Spinner";
 import clsx from "clsx";
+import { productHeader } from "../data/table-headers";
 
 interface TableProps {
   columns: string;
@@ -17,8 +18,8 @@ const Table = ({ columns, isLoading, children }: TableComponentProps) => {
     <TableContext.Provider value={{ columns, isLoading }}>
       <div
         className={clsx(
-          isLoading && "flex items-center",
-          "mt-12 min-h-3/4 overflow-x-auto rounded-xl border border-zinc-200 pb-4 text-zinc-600 transition duration-500 dark:border-zinc-600",
+          isLoading && "flex min-h-3/4 items-center",
+          "mt-12 overflow-x-auto rounded-xl border border-zinc-200 pb-4 text-zinc-600 transition duration-500 dark:border-zinc-600",
         )}
       >
         {!isLoading ? (
@@ -43,27 +44,41 @@ export function useTable() {
   return context;
 }
 
-const Header = ({ children }: ChildrenProp) => {
+const Header = ({
+  checkbox = false,
+  data,
+}: {
+  checkbox?: boolean;
+  data: (string | number | React.ReactNode)[];
+}) => {
   const { columns } = useTable();
   return (
-    <thead className="w-full rounded-2xl bg-zinc-100 text-left transition duration-500 dark:bg-zinc-600 dark:text-white">
+    <thead className="w-full rounded-2xl border-b border-b-zinc-200 bg-zinc-100 text-left transition duration-500 dark:border-b-zinc-600 dark:bg-zinc-600 dark:text-white">
       <tr className="grid py-4" style={{ gridTemplateColumns: columns }}>
-        {children}
+        <th></th>
+        {checkbox ? (
+          <th className="flex items-center">
+            <input id="indigoCheckBox" type="checkbox" className="h-4 w-4" />
+          </th>
+        ) : null}
+        {data.map((d, i) => (
+          <th key={i}>{d}</th>
+        ))}
       </tr>
     </thead>
   );
 };
 
-const Body = ({
-  products,
+const Body = <T,>({
+  data,
   render,
 }: {
-  products?: Product[];
-  render: (product: Product) => React.ReactNode;
+  data?: T[];
+  render: (item: T) => React.ReactNode;
 }) => {
   return (
     <tbody className="text-black transition duration-500 dark:text-white">
-      {products?.map(render)}
+      {data?.map(render)}
     </tbody>
   );
 };
@@ -72,7 +87,7 @@ const Row = ({ children }: ChildrenProp) => {
   const { columns } = useTable();
   return (
     <tr
-      className="grid py-3 transition duration-500 not-last:border-b not-last:border-zinc-200 hover:bg-zinc-100 dark:not-last:border-zinc-600 dark:hover:bg-zinc-700"
+      className="grid py-1.5 transition duration-500 not-last:border-b not-last:border-zinc-200 hover:bg-zinc-100 dark:not-last:border-zinc-600 dark:hover:bg-zinc-700"
       style={{ gridTemplateColumns: columns }}
     >
       {children}
