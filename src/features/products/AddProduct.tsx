@@ -2,6 +2,7 @@ import React from "react";
 import { Modal } from "../../ui/Modal";
 import { Button } from "../../ui/Button";
 import { PlusIcon } from "lucide-react";
+import { AddProductForm } from "./AddProductForm";
 
 export const AddProduct = () => {
   return (
@@ -14,7 +15,7 @@ export const AddProduct = () => {
       </Modal.Open>
 
       <Modal.Window name="add-product">
-        <p>hello wrld!</p>
+        <AddProductForm />
       </Modal.Window>
     </Modal>
   );
