@@ -1,21 +1,33 @@
 import React from "react";
 import type { ChildrenProp, Product } from "../types/types";
+import { Spinner } from "./Spinner";
+import clsx from "clsx";
 
 interface TableProps {
   columns: string;
+  isLoading: boolean;
 }
 
 type TableComponentProps = TableProps & ChildrenProp;
 
 const TableContext = React.createContext<TableProps | undefined>(undefined);
 
-const Table = ({ columns, children }: TableComponentProps) => {
+const Table = ({ columns, isLoading, children }: TableComponentProps) => {
   return (
-    <TableContext.Provider value={{ columns }}>
-      <div className="mt-12 overflow-x-auto rounded-xl border border-zinc-200 pb-4 text-zinc-600 transition duration-500 dark:border-zinc-600">
-        <div className="w-full min-w-[1200px]">
-          <table className="">{children}</table>
-        </div>
+    <TableContext.Provider value={{ columns, isLoading }}>
+      <div
+        className={clsx(
+          isLoading && "flex items-center",
+          "mt-12 min-h-3/4 overflow-x-auto rounded-xl border border-zinc-200 pb-4 text-zinc-600 transition duration-500 dark:border-zinc-600",
+        )}
+      >
+        {!isLoading ? (
+          <div className="w-full min-w-[1200px]">
+            <table className="w-full">{children}</table>
+          </div>
+        ) : (
+          <Spinner />
+        )}
       </div>
     </TableContext.Provider>
   );
@@ -34,7 +46,7 @@ export function useTable() {
 const Header = ({ children }: ChildrenProp) => {
   const { columns } = useTable();
   return (
-    <thead className="rounded-2xl bg-zinc-100 text-left transition duration-500 dark:bg-zinc-600 dark:text-white">
+    <thead className="w-full rounded-2xl bg-zinc-100 text-left transition duration-500 dark:bg-zinc-600 dark:text-white">
       <tr className="grid py-4" style={{ gridTemplateColumns: columns }}>
         {children}
       </tr>

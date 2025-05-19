@@ -7,13 +7,17 @@ import type { Product } from "../types/types";
 
 export const Products = () => {
   const { data: products, isLoading } = useProducts();
+  console.log(products);
 
   if (products) console.log(products);
 
   return (
     <React.Fragment>
       <Heading level="h1">Products List</Heading>
-      <Table columns="0.2fr 0.2fr 3.5fr 1.5fr 1fr 1fr 1fr 1fr">
+      <Table
+        isLoading={isLoading}
+        columns="0.2fr 0.2fr 3.5fr 1.5fr 1fr 1fr 1fr 1fr"
+      >
         <Table.Header>
           <th></th>
           <th className="flex items-center">

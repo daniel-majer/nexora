@@ -6,7 +6,6 @@ import Badge from "./Badge";
 
 export const ProductRow = ({ product }: { product: Product }) => {
   const { name, imageUrl, category, stock, price, isActive } = product;
-  console.log(stock);
 
   return (
     <Table.Row>
