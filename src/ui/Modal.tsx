@@ -54,7 +54,7 @@ const Window = ({
   children,
   name,
 }: {
-  children: React.ReactNode;
+  children: React.ReactElement<any>;
   name: string;
 }) => {
   const { openName, setOpenName } = useModal();
@@ -62,15 +62,19 @@ const Window = ({
 
   if (openName !== name) return null;
 
+  const cloneChildren = cloneElement(children, {
+    close: () => setOpenName(null),
+  });
+
   return createPortal(
     <div>
       {/* Overlay */}
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-xs">
         <div
           ref={modalRef}
-          className="min-h-96 w-full max-w-3xl rounded-lg bg-white p-4 shadow-lg dark:bg-zinc-800"
+          className="min-h-96 w-full max-w-3xl rounded-lg bg-white p-6 shadow-lg dark:bg-zinc-800"
         >
-          {children}
+          {cloneChildren}
         </div>
       </div>
     </div>,

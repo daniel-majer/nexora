@@ -7,8 +7,9 @@ import { Button } from "../../ui/Button";
 import { Textarea } from "../../ui/Textarea";
 import { Select } from "../../ui/Select";
 import { FileUpload } from "../../ui/InputFile";
+import { XIcon } from "lucide-react";
 
-export const AddProductForm = () => {
+export const AddProductForm = ({ close }: { close?: () => void }) => {
   const methods: UseFormReturn<Product> = useForm<Product>({
     defaultValues: {
       name: "",
@@ -27,11 +28,17 @@ export const AddProductForm = () => {
 
   return (
     <FormProvider {...methods}>
-      <Heading level="h2" className="mb-4 border-b border-b-zinc-200 pb-4">
-        Add new product
-      </Heading>
+      <div className="mb-4 flex items-center justify-between border-b border-b-zinc-200 pb-4">
+        <Heading level="h2" className="">
+          Add new product
+        </Heading>
+        <XIcon
+          onClick={close}
+          className="cursor-pointer rounded-sm border border-zinc-200 text-zinc-600 hover:bg-zinc-200"
+        />
+      </div>
       <form
-        className="flex h-full flex-col justify-between gap-4"
+        className="flex h-full flex-col justify-between gap-6"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="flex items-start justify-between gap-4">
@@ -67,25 +74,48 @@ export const AddProductForm = () => {
             minLength: { value: 10, message: "Minimum 10 characters" },
           }}
         />
-        <Select
-          name="category"
-          label="Category"
-          options={[
-            { value: "smartphone", label: "Smartphone" },
-            { value: "keyboard", label: "Keyboard" },
-            { value: "watch", label: "Watch" },
-            { value: "tablet", label: "Tablet" },
-            { value: "earbuds", label: "Earbuds" },
-            { value: "laptop", label: "Laptop" },
-          ]}
-          validation={{ required: "Choose category" }}
-        />
+        <div className="flex items-start justify-between gap-4">
+          <Select
+            name="category"
+            label="Category"
+            options={[
+              { value: "", label: "-- Choose category --" },
+              { value: "smartphone", label: "Smartphone" },
+              { value: "keyboard", label: "Keyboard" },
+              { value: "watch", label: "Watch" },
+              { value: "tablet", label: "Tablet" },
+              { value: "earbuds", label: "Earbuds" },
+              { value: "laptop", label: "Laptop" },
+            ]}
+            validation={{ required: "Choose category" }}
+          />
+          <Select
+            name="isActive"
+            label="Status"
+            options={[
+              { value: "", label: "-- Set status --" },
+              { value: "true", label: "Active" },
+              { value: "false", label: "Inactive" },
+            ]}
+            validation={{ required: "Set status" }}
+          />
+        </div>
+        <div className="flex items-start justify-between gap-4">
+          <FileUpload
+            name="image"
+            label="Image"
+            validation={{ required: "Image is required" }}
+          />
 
-        <FileUpload
-          name="image"
-          label="Image"
-          validation={{ required: "Image is required" }}
-        />
+          <Input
+            name="stock"
+            label="Stock number"
+            placeholder="Enter product count in stock"
+            validation={{
+              required: "This field is required.",
+            }}
+          />
+        </div>
         <Button
           type="submit"
           className="mt-4 rounded bg-blue-500 px-4 py-2 text-white"
