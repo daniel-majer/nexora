@@ -1,10 +1,22 @@
-import { BoxIcon, EllipsisVerticalIcon, ImageIcon, XIcon } from "lucide-react";
+import {
+  BoxIcon,
+  CopyIcon,
+  EllipsisVerticalIcon,
+  ImageIcon,
+  PencilIcon,
+  Trash2Icon,
+  XIcon,
+} from "lucide-react";
 import { useProductOperations } from "../../services/products/useProductOperations";
 import type { Product } from "../../types/types";
 import Badge from "../../ui/Badge";
 import { Modal } from "../../ui/Modal";
 import Table from "../../ui/Table";
 import { AddProductForm } from "./AddProductForm";
+import Tooltip from "../../ui/Tooltip";
+import { Button } from "../../ui/Button";
+import { Heading } from "../../ui/Heading";
+import { Delete } from "../../ui/Delete";
 
 export const ProductRow = ({ product }: { product: Product }) => {
   const { mutate } = useProductOperations();
@@ -56,28 +68,44 @@ export const ProductRow = ({ product }: { product: Product }) => {
         </Badge>
       </td>
       <td className="flex items-center">
-        <div
-          onClick={duplicateProduct}
-          className="cursor-pointer rounded-sm p-2 hover:bg-zinc-200"
-        >
-          <EllipsisVerticalIcon />
-        </div>
-        <div
-          onClick={deleteProduct}
-          className="cursor-pointer rounded-sm p-2 hover:bg-zinc-200"
-        >
-          <XIcon />
-        </div>
-
         <Modal>
-          <Modal.Open openName="edit">
-            <div className="cursor-pointer rounded-sm p-2 hover:bg-zinc-200">
-              <BoxIcon />
-            </div>
-          </Modal.Open>
-          <Modal.Window name="edit">
-            <AddProductForm product={product} />
-          </Modal.Window>
+          <Tooltip.Menu>
+            <Tooltip.Toggle id={product.id} />
+            <Tooltip.List id={product.id}>
+              <Tooltip.Button
+                handle={duplicateProduct}
+                className="flex w-full cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-zinc-700"
+              >
+                <CopyIcon size={16} />
+                Duplicate
+              </Tooltip.Button>
+
+              <Modal.Open openName="edit">
+                <Tooltip.Button className="flex w-full cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-zinc-700">
+                  <PencilIcon size={16} />
+                  Edit
+                </Tooltip.Button>
+              </Modal.Open>
+
+              <Modal.Open openName="delete">
+                <Tooltip.Button
+                  handle={deleteProduct}
+                  className="flex w-full cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-sm text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-zinc-700"
+                >
+                  <Trash2Icon size={16} />
+                  Delete
+                </Tooltip.Button>
+              </Modal.Open>
+            </Tooltip.List>
+
+            <Modal.Window name="delete" size="md">
+              <Delete handle={deleteProduct} />
+            </Modal.Window>
+
+            <Modal.Window name="edit">
+              <AddProductForm product={product} />
+            </Modal.Window>
+          </Tooltip.Menu>
         </Modal>
       </td>
     </Table.Row>

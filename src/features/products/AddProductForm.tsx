@@ -61,7 +61,7 @@ export const AddProductForm = ({
     <FormProvider {...methods}>
       <div className="mb-4 flex items-center justify-between border-b border-b-zinc-200 pb-4">
         <Heading level="h2" className="dark:text-white">
-          Add new product
+          {product?.id ? "Update product" : "Add new product"}
         </Heading>
         <XIcon
           onClick={close}
@@ -158,7 +158,7 @@ export const AddProductForm = ({
           disabled={isPending}
           className="mt-4 rounded px-4 py-2 text-white disabled:cursor-not-allowed disabled:opacity-50"
         >
-          {isPending ? <SpinnerMini /> : "Submit"}
+          {isPending ? <SpinnerMini /> : product?.id ? "Update" : "Submit"}
         </Button>
       </form>
     </FormProvider>

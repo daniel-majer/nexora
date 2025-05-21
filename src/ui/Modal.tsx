@@ -1,11 +1,15 @@
-import React, {
-  cloneElement,
-  use,
-  type ButtonHTMLAttributes,
-  type MouseEventHandler,
-} from "react";
+import React, { cloneElement, type ButtonHTMLAttributes } from "react";
 import { createPortal } from "react-dom";
 import { useOutsideClose } from "../hooks/useOutsideClose";
+import type { keyof } from "zod/v4";
+
+type SizeProps = keyof typeof modalSize;
+
+const modalSize = {
+  xs: "max-w-xl",
+  md: "max-w-2xl",
+  lg: "max-w-3xl",
+};
 
 type ModalContextType = {
   openName: string | null;
@@ -53,9 +57,11 @@ const Open = ({
 const Window = ({
   children,
   name,
+  size = "lg",
 }: {
   children: React.ReactElement<any>;
   name: string;
+  size?: SizeProps;
 }) => {
   const { openName, setOpenName } = useModal();
   const { modalRef } = useOutsideClose({ setOpenName });
@@ -72,7 +78,7 @@ const Window = ({
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-xs">
         <div
           ref={modalRef}
-          className="min-h-96 w-full max-w-3xl rounded-lg bg-white p-6 shadow-lg dark:bg-zinc-800 dark:border dark:border-zinc-600"
+          className={`w-full rounded-lg bg-white p-6 shadow-lg dark:border dark:border-zinc-600 dark:bg-zinc-800 ${modalSize[size]}`}
         >
           {cloneChildren}
         </div>

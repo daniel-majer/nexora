@@ -5,6 +5,7 @@ const classNamesMap = {
     "bg-purple-900 text-white hover:bg-purple-800 dark:bg-purple-700 dark:hover:bg-purple-600",
   secondary: "bg-gray-200 text-black",
   success: "bg-green-500 text-white",
+  delete: "bg-red-500 text-white",
 };
 
 const sizeClassMap = {
