@@ -1,3 +1,6 @@
+export const SUPABASE_URL =
+  "https://rhualnaakqnfdhqhjege.supabase.co/storage/v1/object/public";
+
 export const Status = {
   Pending: "pending",
   Processing: "processing",
@@ -19,7 +22,3 @@ export const DeliveryMethods = {
   SameDay: 3,
   Pickup: 4,
 } as const;
-
-export type StatusType = keyof typeof Status;
-export type PaymentMethodsType = keyof typeof PaymentMethods;
-export type DeliveryMethodsType = keyof typeof DeliveryMethods;

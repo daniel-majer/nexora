@@ -12,9 +12,8 @@ export const productSchema = z.object({
   imageUrl: z.string(),
   category: z.string(),
   stock: z.number(),
-  rating: z.number(),
-  reviews: z.number(),
-  status: z.string(),
+  rating: z.number().optional(),
+  reviews: z.number().optional(),
   isActive: z.boolean(),
 });
 
@@ -70,5 +69,15 @@ export const orderSchema = z.object({
 });
 
 export type Order = z.infer<typeof orderSchema>;
-export type Product = z.infer<typeof productSchema>;
 export type Employees = z.infer<typeof employeeSchema>;
+
+export type Product = {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  imageUrl?: string | FileList;
+  category: string;
+  stock: number;
+  isActive: string;
+};

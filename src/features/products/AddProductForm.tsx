@@ -1,40 +1,71 @@
-import React from "react";
+import { XIcon } from "lucide-react";
 import { FormProvider, useForm, type UseFormReturn } from "react-hook-form";
 import type { Product } from "../../types/types";
-import { Input } from "../../ui/Input";
-import { Heading } from "../../ui/Heading";
 import { Button } from "../../ui/Button";
-import { Textarea } from "../../ui/Textarea";
-import { Select } from "../../ui/Select";
+import { Heading } from "../../ui/Heading";
+import { Input } from "../../ui/Input";
 import { FileUpload } from "../../ui/InputFile";
-import { XIcon } from "lucide-react";
+import { Select } from "../../ui/Select";
+import { SpinnerMini } from "../../ui/SpinnerMini";
+import { Textarea } from "../../ui/Textarea";
+import { useProductOperations } from "../../services/products/useProductOperations";
 
-export const AddProductForm = ({ close }: { close?: () => void }) => {
+export const AddProductForm = ({
+  close,
+  product,
+}: {
+  close?: () => void;
+  product?: Product;
+}) => {
+  const { mutate, isPending } = useProductOperations();
+
   const methods: UseFormReturn<Product> = useForm<Product>({
-    defaultValues: {
-      name: "",
-      description: "",
-      category: "",
-      imageUrl: "",
-    },
+    defaultValues: product
+      ? {
+          ...product,
+        }
+      : {
+          name: "Apple",
+          description: "Example text, lol",
+          price: 199,
+          category: "smartphone",
+          stock: 99,
+          isActive: "true",
+        },
     mode: "onChange",
   });
 
   const { handleSubmit } = methods;
 
   function onSubmit(data: Product) {
-    console.log(data);
+    if (product?.id) {
+      return mutate(
+        { product: data, action: "edit" },
+        {
+          onSuccess: () => close && close(),
+          onError: (error) => console.error("Error update product:", error),
+        },
+      );
+    }
+
+    mutate(
+      { product: data },
+      {
+        onSuccess: () => close && close(),
+        onError: (error) => console.error("Error create product:", error),
+      },
+    );
   }
 
   return (
     <FormProvider {...methods}>
       <div className="mb-4 flex items-center justify-between border-b border-b-zinc-200 pb-4">
-        <Heading level="h2" className="">
+        <Heading level="h2" className="dark:text-white">
           Add new product
         </Heading>
         <XIcon
           onClick={close}
-          className="cursor-pointer rounded-sm border border-zinc-200 text-zinc-600 hover:bg-zinc-200"
+          className="cursor-pointer rounded-sm border border-zinc-200 text-zinc-600 hover:bg-zinc-200 dark:text-white dark:hover:bg-zinc-600"
         />
       </div>
       <form
@@ -60,7 +91,7 @@ export const AddProductForm = ({ close }: { close?: () => void }) => {
               valueAsNumber: true,
               min: {
                 value: 0,
-                message: "Cena musí byť kladné číslo",
+                message: "Price must be greater than 0",
               },
             }}
           />
@@ -102,25 +133,32 @@ export const AddProductForm = ({ close }: { close?: () => void }) => {
         </div>
         <div className="flex items-start justify-between gap-4">
           <FileUpload
-            name="image"
+            name="imageUrl"
             label="Image"
-            validation={{ required: "Image is required" }}
+            // validation={{ required: "Image is required" }}
           />
 
           <Input
             name="stock"
             label="Stock number"
+            type="number"
             placeholder="Enter product count in stock"
             validation={{
               required: "This field is required.",
+              valueAsNumber: true,
+              min: {
+                value: 0,
+                message: "Stock must be positive number",
+              },
             }}
           />
         </div>
         <Button
           type="submit"
-          className="mt-4 rounded bg-blue-500 px-4 py-2 text-white"
+          disabled={isPending}
+          className="mt-4 rounded px-4 py-2 text-white disabled:cursor-not-allowed disabled:opacity-50"
         >
-          Submit
+          {isPending ? <SpinnerMini /> : "Submit"}
         </Button>
       </form>
     </FormProvider>

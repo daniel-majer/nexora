@@ -35,7 +35,7 @@ export const FileUpload = ({
         type="file"
         accept={accept}
         {...register(name, validation)}
-        className="block w-full cursor-pointer text-sm text-gray-900 file:mr-4 file:rounded-md file:border-0 file:cursor-pointer file:bg-purple-900 file:px-4 file:py-2 file:text-white hover:file:bg-purple-800 dark:bg-zinc-800 dark:text-white"
+        className="block w-full cursor-pointer text-sm text-gray-900 transition duration-500 file:mr-4 file:cursor-pointer file:rounded-md file:border-0 file:bg-purple-900 file:px-4 file:py-2 file:text-white hover:file:bg-purple-800 dark:bg-zinc-800 dark:text-white dark:file:bg-purple-700 dark:hover:file:bg-purple-600"
       />
       {error && <span className="text-sm text-red-500">{error}</span>}
     </div>

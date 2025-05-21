@@ -1,11 +1,22 @@
-import React from "react";
-import Table from "../../ui/Table";
+import { BoxIcon, EllipsisVerticalIcon, ImageIcon, XIcon } from "lucide-react";
+import { useProductOperations } from "../../services/products/useProductOperations";
 import type { Product } from "../../types/types";
-import { EllipsisVerticalIcon, ImageIcon } from "lucide-react";
 import Badge from "../../ui/Badge";
+import { Modal } from "../../ui/Modal";
+import Table from "../../ui/Table";
+import { AddProductForm } from "./AddProductForm";
 
 export const ProductRow = ({ product }: { product: Product }) => {
+  const { mutate } = useProductOperations();
   const { name, imageUrl, category, stock, price, isActive } = product;
+
+  function duplicateProduct() {
+    mutate({ product, action: "duplicate" });
+  }
+
+  function deleteProduct() {
+    mutate({ product, action: "delete" });
+  }
 
   return (
     <Table.Row>
@@ -15,9 +26,14 @@ export const ProductRow = ({ product }: { product: Product }) => {
       </td>
       <td className="flex flex-row items-center gap-4 px-4">
         {imageUrl ? (
-          <img src={imageUrl} width={28} alt={name} className="inline" />
+          <img
+            src={imageUrl as string}
+            width={28}
+            alt={name}
+            className="inline"
+          />
         ) : (
-          <ImageIcon size={48} className="" />
+          <ImageIcon size={24} />
         )}
         <span>{name}</span>
       </td>
@@ -40,9 +56,29 @@ export const ProductRow = ({ product }: { product: Product }) => {
         </Badge>
       </td>
       <td className="flex items-center">
-        <div className="cursor-pointer rounded-sm p-2 hover:bg-zinc-200">
+        <div
+          onClick={duplicateProduct}
+          className="cursor-pointer rounded-sm p-2 hover:bg-zinc-200"
+        >
           <EllipsisVerticalIcon />
         </div>
+        <div
+          onClick={deleteProduct}
+          className="cursor-pointer rounded-sm p-2 hover:bg-zinc-200"
+        >
+          <XIcon />
+        </div>
+
+        <Modal>
+          <Modal.Open openName="edit">
+            <div className="cursor-pointer rounded-sm p-2 hover:bg-zinc-200">
+              <BoxIcon />
+            </div>
+          </Modal.Open>
+          <Modal.Window name="edit">
+            <AddProductForm product={product} />
+          </Modal.Window>
+        </Modal>
       </td>
     </Table.Row>
   );

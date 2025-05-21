@@ -37,7 +37,7 @@ export const Input = ({
         id={name}
         {...register(name, validation)}
         {...rest}
-        className={`rounded-md border px-3 py-2 text-sm transition outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:bg-zinc-800 dark:text-white ${className} ${
+        className={`rounded-md border px-3 py-2 text-sm transition outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 dark:bg-zinc-800 dark:text-white ${className} ${
           error ? "border-red-500" : "border-gray-300"
         }`}
       />

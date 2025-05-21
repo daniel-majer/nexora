@@ -1,9 +1,7 @@
-import { PlusIcon } from "lucide-react";
 import React from "react";
-import { ProductTable } from "../features/products/ProductTable";
-import { Button } from "../ui/Button";
-import { Heading } from "../ui/Heading";
 import { AddProduct } from "../features/products/AddProduct";
+import { ProductTable } from "../features/products/ProductTable";
+import { Heading } from "../ui/Heading";
 
 export const Products = () => {
   return (

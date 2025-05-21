@@ -22,7 +22,7 @@ const Table = ({ columns, isLoading, children }: TableComponentProps) => {
         )}
       >
         {!isLoading ? (
-          <div className="w-full min-w-[1200px]">
+          <div className="min-h-[500px] w-full min-w-[1200px]">
             <table className="w-full">{children}</table>
           </div>
         ) : (
@@ -75,6 +75,16 @@ const Body = <T,>({
   data?: T[];
   render: (item: T) => React.ReactNode;
 }) => {
+  if (!data?.length) {
+    return (
+      <tbody className="flex h-full min-h-[500px] items-center justify-center text-black transition duration-500 dark:text-white">
+        <tr>
+          <td>No data</td>
+        </tr>
+      </tbody>
+    );
+  }
+
   return (
     <tbody className="text-black transition duration-500 dark:text-white">
       {data?.map(render)}

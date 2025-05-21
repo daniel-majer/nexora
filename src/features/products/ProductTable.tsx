@@ -1,14 +1,12 @@
 import React from "react";
-import { useProducts } from "../../services/apiProducts";
 import Table from "../../ui/Table";
 import { ProductRow } from "./ProductRow";
 import type { Product } from "../../types/types";
 import { productHeader } from "../../data/table-headers";
+import { useGetProducts } from "../../services/products/useGetProducts";
 
 export const ProductTable = () => {
-  const { data: products, isLoading } = useProducts();
-
-  if (products) console.log(products);
+  const { data: products, isLoading } = useGetProducts();
 
   return (
     <React.Fragment>

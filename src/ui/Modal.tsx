@@ -72,7 +72,7 @@ const Window = ({
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-xs">
         <div
           ref={modalRef}
-          className="min-h-96 w-full max-w-3xl rounded-lg bg-white p-6 shadow-lg dark:bg-zinc-800"
+          className="min-h-96 w-full max-w-3xl rounded-lg bg-white p-6 shadow-lg dark:bg-zinc-800 dark:border dark:border-zinc-600"
         >
           {cloneChildren}
         </div>
