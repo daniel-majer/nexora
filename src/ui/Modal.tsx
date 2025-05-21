@@ -47,7 +47,7 @@ const Open = ({
 }) => {
   const { setOpenName } = useModal();
 
-  const cloneChildren = cloneElement(children, {
+  const cloneChildren = cloneElement(children!, {
     onClick: () => setOpenName(openName),
   });
 

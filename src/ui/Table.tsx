@@ -18,7 +18,7 @@ const Table = ({ columns, isLoading, children }: TableComponentProps) => {
       <div
         className={clsx(
           isLoading && "flex min-h-3/4 items-center",
-          "mt-10 overflow-x-auto rounded-xl border border-zinc-200 pb-4 text-zinc-600 transition duration-500 dark:border-zinc-600",
+          "mt-6 overflow-x-auto rounded-xl border border-zinc-200 pb-4 text-zinc-600 transition duration-500 dark:border-zinc-600",
         )}
       >
         {!isLoading ? (

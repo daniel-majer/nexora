@@ -1,24 +1,22 @@
-import {
-  BoxIcon,
-  CopyIcon,
-  EllipsisVerticalIcon,
-  ImageIcon,
-  PencilIcon,
-  Trash2Icon,
-  XIcon,
-} from "lucide-react";
+import { CopyIcon, ImageIcon, PencilIcon, Trash2Icon } from "lucide-react";
 import { useProductOperations } from "../../services/products/useProductOperations";
 import type { Product } from "../../types/types";
 import Badge from "../../ui/Badge";
+import { Delete } from "../../ui/Delete";
 import { Modal } from "../../ui/Modal";
 import Table from "../../ui/Table";
-import { AddProductForm } from "./AddProductForm";
 import Tooltip from "../../ui/Tooltip";
-import { Button } from "../../ui/Button";
-import { Heading } from "../../ui/Heading";
-import { Delete } from "../../ui/Delete";
+import { AddProductForm } from "./AddProductForm";
 
-export const ProductRow = ({ product }: { product: Product }) => {
+export const ProductRow = ({
+  product,
+  productsDelete,
+  setProductsDelete,
+}: {
+  product: Product;
+  productsDelete: string[];
+  setProductsDelete: React.Dispatch<React.SetStateAction<string[]>>;
+}) => {
   const { mutate } = useProductOperations();
   const { name, imageUrl, category, stock, price, isActive } = product;
 
@@ -30,11 +28,24 @@ export const ProductRow = ({ product }: { product: Product }) => {
     mutate({ product, action: "delete" });
   }
 
+  function handleCheckbox() {
+    if (productsDelete.includes(product.id)) {
+      const deleteAction = productsDelete.filter((prod) => prod !== product.id);
+      return setProductsDelete(deleteAction);
+    }
+    setProductsDelete((prods) => [...prods, product.id]);
+  }
+
   return (
     <Table.Row>
       <td></td>
       <td className="flex items-center">
-        <input id="indigoCheckBox" type="checkbox" className="h-4 w-4" />
+        <input
+          onChange={handleCheckbox}
+          id="indigoCheckBox"
+          type="checkbox"
+          className="h-4 w-4"
+        />
       </td>
       <td className="flex flex-row items-center gap-4 px-4">
         {imageUrl ? (

@@ -9,6 +9,11 @@ export const Delete = ({
   handle?: () => void;
   close?: () => void;
 }) => {
+  const deleteItem = () => {
+    handle?.();
+    close?.();
+  };
+
   return (
     <div>
       <Heading level="h2">Delete product</Heading>
@@ -17,7 +22,7 @@ export const Delete = ({
         undone.
       </p>
       <div className="space-x-4">
-        <Button onClick={handle} variant="delete">
+        <Button onClick={deleteItem} variant="delete">
           Delete product
         </Button>
         <Button onClick={close} variant="secondary">
