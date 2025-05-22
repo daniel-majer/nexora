@@ -21,17 +21,12 @@ export const useOutsideClose = ({
   }, []);
 
   React.useEffect(() => {
-    // if (modalRef.current) return;
-    console.log();
-
     const handleClickOutside = (e: MouseEvent) => {
       if ((e.target as HTMLElement).closest(".btn-helper-class")) {
         return;
       }
 
       if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
-        console.log(e.target);
-
         setOpenName(null);
       }
     };

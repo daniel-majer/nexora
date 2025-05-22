@@ -36,7 +36,7 @@ export const AddProductForm = ({
   });
 
   const { handleSubmit } = methods;
-
+  console.log(product);
   function onSubmit(data: Product) {
     if (product?.id) {
       return mutate(

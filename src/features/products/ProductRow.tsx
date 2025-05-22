@@ -1,4 +1,10 @@
-import { CopyIcon, ImageIcon, PencilIcon, Trash2Icon } from "lucide-react";
+import {
+  CopyIcon,
+  ImageIcon,
+  PencilIcon,
+  StarIcon,
+  Trash2Icon,
+} from "lucide-react";
 import { useProductOperations } from "../../services/products/useProductOperations";
 import type { Product } from "../../types/types";
 import Badge from "../../ui/Badge";
@@ -12,23 +18,30 @@ export const ProductRow = ({
   product,
   productsDelete,
   setProductsDelete,
+  allSelected,
+  setAllSelected,
 }: {
   product: Product;
   productsDelete: string[];
   setProductsDelete: React.Dispatch<React.SetStateAction<string[]>>;
+  allSelected: boolean;
+  setAllSelected: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const { mutate } = useProductOperations();
-  const { name, imageUrl, category, stock, price, isActive } = product;
+  const { mutate, mutateAsync, isPending } = useProductOperations();
+  const { name, imageUrl, category, stock, price, isActive, reviews, rating } =
+    product;
+  const isChecked = productsDelete.includes(product.id);
 
   function duplicateProduct() {
     mutate({ product, action: "duplicate" });
   }
 
-  function deleteProduct() {
-    mutate({ product, action: "delete" });
+  async function deleteProduct() {
+    await mutateAsync({ product, action: "delete" });
   }
 
   function handleCheckbox() {
+    if (allSelected) setAllSelected(false);
     if (productsDelete.includes(product.id)) {
       const deleteAction = productsDelete.filter((prod) => prod !== product.id);
       return setProductsDelete(deleteAction);
@@ -42,6 +55,7 @@ export const ProductRow = ({
       <td className="flex items-center">
         <input
           onChange={handleCheckbox}
+          checked={isChecked}
           id="indigoCheckBox"
           type="checkbox"
           className="h-4 w-4"
@@ -78,6 +92,22 @@ export const ProductRow = ({
           {isActive ? "Active" : "Inactive"}
         </Badge>
       </td>
+      <td className="flex items-center">{reviews}</td>
+      <td className="flex items-center">
+        <span className="flex gap-2">
+          <Badge
+            variant={
+              rating! > 4 ? "success" : rating! > 3 ? "warning" : "danger"
+            }
+          >
+            <span className="flex gap-2 py-0.5">
+              {rating}
+              <StarIcon size={16} className={` `} />
+            </span>
+          </Badge>
+          {/*  */}
+        </span>
+      </td>
       <td className="flex items-center">
         <Modal>
           <Tooltip.Menu>
@@ -110,7 +140,7 @@ export const ProductRow = ({
             </Tooltip.List>
 
             <Modal.Window name="delete" size="md">
-              <Delete handle={deleteProduct} />
+              <Delete isPending={isPending} handle={deleteProduct} />
             </Modal.Window>
 
             <Modal.Window name="edit">

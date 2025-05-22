@@ -18,7 +18,7 @@ const Table = ({ columns, isLoading, children }: TableComponentProps) => {
       <div
         className={clsx(
           isLoading && "flex min-h-3/4 items-center",
-          "mt-6 overflow-x-auto rounded-xl border border-zinc-200 pb-4 text-zinc-600 transition duration-500 dark:border-zinc-600",
+          "mt-4 overflow-x-auto rounded-xl border border-zinc-200 pb-4 text-zinc-600 transition duration-500 dark:border-zinc-600",
         )}
       >
         {!isLoading ? (
@@ -46,9 +46,13 @@ export function useTable() {
 const Header = ({
   checkbox = false,
   data,
+  toggleSelectAll,
+  allSelected,
 }: {
   checkbox?: boolean;
   data: (string | number | React.ReactNode)[];
+  toggleSelectAll: () => void;
+  allSelected: boolean;
 }) => {
   const { columns } = useTable();
   return (
@@ -57,7 +61,13 @@ const Header = ({
         <th></th>
         {checkbox ? (
           <th className="flex items-center">
-            <input id="indigoCheckBox" type="checkbox" className="h-4 w-4" />
+            <input
+              onChange={toggleSelectAll}
+              checked={allSelected}
+              id="indigoCheckBox"
+              type="checkbox"
+              className="h-4 w-4"
+            />
           </th>
         ) : null}
         {data.map((d, i) => (
@@ -96,7 +106,7 @@ const Row = ({ children }: ChildrenProp) => {
   const { columns } = useTable();
   return (
     <tr
-      className="grid py-1.5 transition duration-500 not-last:border-b not-last:border-zinc-200 hover:bg-zinc-100 dark:not-last:border-zinc-600 dark:hover:bg-zinc-700"
+      className="grid border-zinc-200 py-1.5 transition duration-500 not-last:border-b not-last:border-zinc-200 hover:bg-zinc-100 dark:not-last:border-zinc-600 dark:hover:bg-zinc-700"
       style={{ gridTemplateColumns: columns }}
     >
       {children}

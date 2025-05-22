@@ -4,6 +4,8 @@ export const productHeader = [
   "Stock",
   "Price",
   "Status",
+  "Reviews",
+  "Rating",
   "Action",
 ];
 
@@ -18,7 +20,6 @@ export const orderHeader = [
   "Action",
 ];
 
-
 export const employeeHeader = [
   "Name",
   "Email",
@@ -29,4 +30,4 @@ export const employeeHeader = [
   "Age",
   "Action",
 ];
-  // const { name, email, position, department, hired, phone, birth  } = employee;
+// const { name, email, position, department, hired, phone, birth  } = employee;

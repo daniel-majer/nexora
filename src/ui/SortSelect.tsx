@@ -1,0 +1,49 @@
+import { useSearchParams } from "react-router";
+import type { Product } from "../types/types";
+
+type Option = {
+  label: string;
+  value: string;
+};
+
+type SortSelectProps = {
+  options: Option[];
+  label?: string;
+  field: string;
+  value: string;
+};
+
+export const SortSelect = ({
+  options,
+  label,
+  field,
+  value,
+}: SortSelectProps) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const sortBy = searchParams.get(field) || value;
+
+  function setSortBy(e: React.ChangeEvent<HTMLSelectElement>) {
+    searchParams.set(field, e.target.value);
+    setSearchParams(searchParams);
+  }
+
+  return (
+    <div className="flex flex-col gap-1 text-sm">
+      {label && (
+        <label className="text-gray-600 dark:text-gray-300">{label}</label>
+      )}
+      <select
+        value={sortBy}
+        onChange={setSortBy}
+        className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-700 shadow-sm transition duration-200 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+      >
+        {options.map((opt) => (
+          <option key={opt.value} value={opt.value} className="text-black">
+            {opt.label}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+};

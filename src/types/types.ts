@@ -79,5 +79,7 @@ export type Product = {
   imageUrl?: string | FileList;
   category: string;
   stock: number;
-  isActive: string;
+  isActive: boolean;
+  reviews: number | null;
+  rating: number | null;
 };

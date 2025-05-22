@@ -8,8 +8,8 @@ export const AddProduct = () => {
   return (
     <Modal>
       <Modal.Open openName="add-product">
-        <Button size="lg" className="flex items-center gap-2">
-          <PlusIcon />
+        <Button size="md" className="flex items-center gap-2">
+          <PlusIcon size={16}/>
           <span>Add product</span>
         </Button>
       </Modal.Open>
