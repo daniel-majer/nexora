@@ -1,28 +1,29 @@
 import React from "react";
-import Table from "../../ui/Table";
-import { ProductRow } from "./ProductRow";
-import type { Product } from "../../types/types";
-import { productHeader } from "../../data/table-headers";
-import { useGetProducts } from "../../services/products/useGetProducts";
-import Tooltip from "../../ui/Tooltip";
-import { Button } from "../../ui/Button";
-import { Modal } from "../../ui/Modal";
-import { Delete } from "../../ui/Delete";
-import { useDeleteAllProducts } from "../../services/products/useDeleteAllProducts";
-import { AddProduct } from "./AddProduct";
-import { SortSelect } from "../../ui/SortSelect";
-import { Heading } from "../../ui/Heading";
 import { useSearchParams } from "react-router";
 import { filterOptions, toggleOptions } from "../../data/filterOptions";
-import { ToggleButtons } from "../../ui/ToggleButton";
 import { sortOptions } from "../../data/sortOptions";
+import { CSVHeader, productHeader } from "../../data/table-headers";
+import { useDeleteAllProducts } from "../../services/products/useDeleteAllProducts";
+import { useGetProducts } from "../../services/products/useGetProducts";
+import type { Product } from "../../types/types";
+import { Button } from "../../ui/Button";
+import { Delete } from "../../ui/Delete";
 import { FilterByNameInput } from "../../ui/FilterByNameInput";
+import { Modal } from "../../ui/Modal";
+import { SortSelect } from "../../ui/SortSelect";
+import Table from "../../ui/Table";
+import { ToggleButtons } from "../../ui/ToggleButtons";
+import Tooltip from "../../ui/Tooltip";
+import { AddProduct } from "./AddProduct";
+import { ProductRow } from "./ProductRow";
+import { CSVLink } from "react-csv";
+import { useSortBy } from "../../hooks/useSortBy";
 
 export const ProductTable = () => {
   const { data, isLoading } = useGetProducts();
+  const { mutateAsync, isPending } = useDeleteAllProducts();
   const [productsDelete, setProductsDelete] = React.useState<string[]>([]);
   const [allSelected, setAllSelected] = React.useState(false);
-  const { mutateAsync, isPending } = useDeleteAllProducts();
   const [searchParams] = useSearchParams();
   let filterProducts: Product[] = [];
 
@@ -37,44 +38,27 @@ export const ProductTable = () => {
     )
     .filter((p) =>
       filterByCategory === "all" ? true : p.category === filterByCategory,
-    ).filter((p) =>
+    )
+    .filter((p) =>
       filterByName === "all"
         ? true
-        : p.name.toLowerCase().includes(filterByName.toLowerCase())
+        : p.name.toLowerCase().includes(filterByName.toLowerCase()),
     );
 
   /* SORT BY */
-  const sortBy = searchParams.get("sortBy") || "name-asc";
-  const [filteredKey, value] = sortBy.split("-");
-
-  const prods = () => {
-    if (!data || !filteredKey) return data;
-
-    return [...filterProducts].sort((a, b) => {
-      const aValue = a[filteredKey as keyof Product];
-      const bValue = b[filteredKey as keyof Product];
-
-      if (typeof aValue === "string" && typeof bValue === "string") {
-        return value === "asc"
-          ? aValue.localeCompare(bValue)
-          : bValue.localeCompare(aValue);
-      }
-      if (typeof aValue === "number" && typeof bValue === "number") {
-        return value === "asc" ? aValue - bValue : bValue - aValue;
-      }
-      return 0;
-    });
-  };
-
-  const products = prods();
+  const { sortedData } = useSortBy<Product>({
+    field: "name-asc",
+    originData: data ?? [],
+    filterData: filterProducts,
+  });
 
   const toggleSelectAll = () => {
-    if (!products) return;
+    if (!sortedData) return;
 
     if (allSelected) {
       setProductsDelete([]);
     } else {
-      setProductsDelete(products.map((u) => u.id));
+      setProductsDelete(sortedData.map((u) => u.id));
     }
     setAllSelected(!allSelected);
   };
@@ -82,18 +66,23 @@ export const ProductTable = () => {
   return (
     <React.Fragment>
       <Tooltip>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-4">
           <Modal>
-            {productsDelete.length ? (
+            {productsDelete.length && data ? (
               <div className="flex gap-2">
                 <Modal.Open openName="delete">
                   <Button size="md" variant="delete">
                     Delete products
                   </Button>
                 </Modal.Open>
-                <Button size="md" variant="primary">
-                  Export CSV
-                </Button>
+                <CSVLink
+                  data={data}
+                  headers={CSVHeader}
+                  filename="products.csv"
+                  className="cursor-pointer rounded-md bg-purple-900 px-4 py-2 text-base font-semibold whitespace-nowrap text-white transition duration-500 hover:bg-purple-800 hover:opacity-80 dark:bg-purple-700 dark:hover:bg-purple-600"
+                >
+                  Export to CSV
+                </CSVLink>
               </div>
             ) : null}
             <Modal.Window name="delete">
@@ -103,7 +92,10 @@ export const ProductTable = () => {
                   await mutateAsync(
                     { products: productsDelete },
                     {
-                      onSuccess: () => setAllSelected(false),
+                      onSuccess: () => {
+                        setProductsDelete([]);
+                        setAllSelected(false);
+                      },
                       onError: (error) =>
                         console.error("Error update product:", error),
                     },
@@ -112,7 +104,7 @@ export const ProductTable = () => {
               ></Delete>
             </Modal.Window>
           </Modal>
-          <div className="ml-auto flex items-center gap-4">
+          <div className="ml-auto flex w-full items-center gap-4">
             <FilterByNameInput />
             <ToggleButtons
               options={toggleOptions}
@@ -136,7 +128,7 @@ export const ProductTable = () => {
             allSelected={allSelected}
           />
           <Table.Body
-            data={products}
+            data={sortedData}
             render={(product: Product) => (
               <ProductRow
                 product={product}

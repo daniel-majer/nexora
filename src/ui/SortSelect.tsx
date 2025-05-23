@@ -3,7 +3,7 @@ import type { Product } from "../types/types";
 
 type Option = {
   label: string;
-  value: string;
+  value: string | number;
 };
 
 type SortSelectProps = {
@@ -36,7 +36,7 @@ export const SortSelect = ({
       <select
         value={sortBy}
         onChange={setSortBy}
-        className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-700 shadow-sm transition duration-200 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+        className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-700 shadow-sm transition duration-500 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-white"
       >
         {options.map((opt) => (
           <option key={opt.value} value={opt.value} className="text-black">

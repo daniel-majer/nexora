@@ -15,7 +15,7 @@ const variantStyles: Record<NonNullable<BadgeProps["variant"]>, string> = {
   warning:
     "bg-yellow-100 text-yellow-800 dark:bg-yellow-200 dark:text-yellow-950",
   danger: "bg-red-100 text-red-800 dark:bg-red-200 dark:text-red-950",
-  neutral: "bg-gray-100 text-gray-800",
+  neutral: "bg-gray-200 text-gray-800",
 };
 
 export default function Badge({

@@ -9,6 +9,16 @@ export const productHeader = [
   "Action",
 ];
 
+export const CSVHeader = [
+  { label: "Product", key: "name" },
+  { label: "Category", key: "category" },
+  { label: "Stock", key: "stock" },
+  { label: "Price", key: "price" },
+  { label: "Status", key: "isActive" },
+  { label: "Reviews", key: "reviews" },
+  { label: "Rating", key: "rating" },
+];
+
 export const orderHeader = [
   "Customer",
   "Date",
@@ -16,7 +26,7 @@ export const orderHeader = [
   "Status",
   "Delivery method",
   "Total",
-  "Employee",
+  "Processed by",
   "Action",
 ];
 

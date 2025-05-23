@@ -20,12 +20,12 @@ export const ToggleButtons = ({ options, field, value }: ToggleProps) => {
   }
 
   return (
-    <div className="inline-flex items-center rounded-md bg-gray-100 p-1 dark:bg-gray-800">
+    <div className="inline-flex items-center rounded-md bg-gray-100 p-1 transition duration-500 dark:bg-gray-800">
       {options.map((option) => (
         <button
           key={option.value}
           onClick={() => setParam(option.value)}
-          className={`cursor-pointer rounded-md px-4 py-2 text-sm font-medium text-gray-600 transition dark:text-gray-300 dark:hover:bg-gray-700 ${param === option.value ? "bg-purple-900 text-white shadow hover:bg-purple-800" : "text-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"}`}
+          className={`cursor-pointer rounded-md px-4 py-2 text-sm font-medium text-gray-600 transition duration-500 dark:text-gray-300 dark:hover:bg-purple-700 ${param === option.value ? "bg-purple-900 text-white shadow hover:bg-purple-800 dark:bg-purple-700 dark:text-white dark:hover:bg-purple-600" : "text-gray-600 dark:text-white dark:hover:bg-purple-700"}`}
         >
           {option.label}
         </button>

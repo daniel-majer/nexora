@@ -51,8 +51,8 @@ const Header = ({
 }: {
   checkbox?: boolean;
   data: (string | number | React.ReactNode)[];
-  toggleSelectAll: () => void;
-  allSelected: boolean;
+  toggleSelectAll?: () => void;
+  allSelected?: boolean;
 }) => {
   const { columns } = useTable();
   return (

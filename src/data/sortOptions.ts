@@ -8,3 +8,10 @@ export const sortOptions = [
   { label: "Sort by rating (low first)", value: "rating-asc" },
   { label: "Sort by rating (high first)", value: "rating-desc" },
 ];
+
+export const sortOrders = [
+  { label: "Sort by date (soon first)", value: "createdAt-asc" },
+  { label: "Sort by date (late first)", value: "createdAt-desc" },
+  { label: "Sort by total price (low first)", value: "totalAmount-asc" },
+  { label: "Sort by total price (high first)", value: "totalAmount-desc" },
+];

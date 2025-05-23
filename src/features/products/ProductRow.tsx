@@ -36,8 +36,18 @@ export const ProductRow = ({
     mutate({ product, action: "duplicate" });
   }
 
-  async function deleteProduct() {
-    await mutateAsync({ product, action: "delete" });
+  async function deleteProduct(id: string) {
+    await mutateAsync(
+      { product, action: "delete" },
+      {
+        onSuccess: () => {
+          const reCalculate = productsDelete.filter((prod) => prod !== id);
+          setProductsDelete(reCalculate);
+        },
+        onError: (error) => console.error("Error deleting product:", error),
+      },
+    );
+    if (productsDelete.length) console.log(productsDelete, id);
   }
 
   function handleCheckbox() {
@@ -129,10 +139,7 @@ export const ProductRow = ({
               </Modal.Open>
 
               <Modal.Open openName="delete">
-                <Tooltip.Button
-                  handle={deleteProduct}
-                  className="flex w-full cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-sm text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-zinc-700"
-                >
+                <Tooltip.Button className="flex w-full cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-sm text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-zinc-700">
                   <Trash2Icon size={16} />
                   Delete
                 </Tooltip.Button>
@@ -140,7 +147,10 @@ export const ProductRow = ({
             </Tooltip.List>
 
             <Modal.Window name="delete" size="md">
-              <Delete isPending={isPending} handle={deleteProduct} />
+              <Delete
+                isPending={isPending}
+                handle={() => deleteProduct(product.id)}
+              />
             </Modal.Window>
 
             <Modal.Window name="edit">

@@ -4,24 +4,22 @@ import type { Order } from "../types/types";
 import { useQuery } from "@tanstack/react-query";
 
 async function getOrders() {
-  const { data: orders, error } = await supabase
-    .from("orders")
-    .select(
-      `
+  const { data: orders, error } = await supabase.from("orders").select(
+    `
     *,
     customers ( * ),
-    employees ( * )
+    order_items ( * ),
+    employees ( name )
   `,
-    )
-    .order("id", { ascending: true });
+  );
 
   if (error) throw new Error("Orders could not be loaded");
 
-  return orders as Order[];
+  return orders;
 }
 
 export function useOrders() {
-  return useQuery({
+  return useQuery<Order[], Error>({
     queryKey: ["orders"],
     queryFn: getOrders,
   });

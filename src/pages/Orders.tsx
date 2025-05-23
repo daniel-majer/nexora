@@ -5,7 +5,9 @@ import { Heading } from "../ui/Heading";
 export const Orders = () => {
   return (
     <React.Fragment>
-      <Heading level="h1">Order List</Heading>
+      <Heading level="h1" className="mb-6">
+        Order List
+      </Heading>
       <OrderTable />
     </React.Fragment>
   );

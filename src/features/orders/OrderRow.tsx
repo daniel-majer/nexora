@@ -4,6 +4,7 @@ import {
   CoinsIcon,
   CreditCardIcon,
   EllipsisVerticalIcon,
+  EyeIcon,
   LandmarkIcon,
   ShoppingBasketIcon,
   ShoppingCartIcon,
@@ -18,12 +19,12 @@ import paypal from "../../assets/paypal-svgrepo-com.svg";
 
 export const OrderRow = ({ order }: { order: Order }) => {
   const {
-    customers,
-    orderDate,
     status,
-    paymentMethodId,
-    deliveryMethodId,
+    paymentMethod,
+    deliveryMethod,
     totalAmount,
+    createdAt,
+    customers,
     employees,
   } = order;
 
@@ -32,40 +33,45 @@ export const OrderRow = ({ order }: { order: Order }) => {
       <td></td>
       {/* customer name */}
       <td className="flex items-center gap-2">
-        <CircleUserRoundIcon />
-        <span>{customers?.name}</span>
+        <CircleUserRoundIcon size={30} />
+        <div className="flex flex-col">
+          <span>{customers.name}</span>
+          <span className="text-sm text-zinc-500 dark:text-zinc-400">
+            {customers.email}
+          </span>
+        </div>
       </td>
       {/* date */}
       <td className="flex items-center text-sm whitespace-nowrap text-zinc-600 transition duration-500 dark:text-zinc-300">
-        {format(orderDate, "d. M. yyyy, HH:mm")}
+        {format(createdAt, "d. M. yyyy, HH:mm")}
       </td>
       {/* payment method */}
       <td className="flex items-center">
-        {paymentMethodId === PaymentMethods.CreditCard ? (
+        {paymentMethod === PaymentMethods.CreditCard ? (
           <Badge>
             <div className="flex items-center gap-2">
-              <CreditCardIcon />
+              <CreditCardIcon size={16} />
               <span>Credit Card</span>
             </div>
           </Badge>
-        ) : paymentMethodId === PaymentMethods.PayPal ? (
+        ) : paymentMethod === PaymentMethods.PayPal ? (
           <Badge>
             <div className="flex items-center gap-2">
-              <img src={paypal} width={20} alt="" />
+              <img src={paypal} width={16} alt="" />
               <span>PayPal</span>
             </div>
           </Badge>
-        ) : paymentMethodId === PaymentMethods.BankTransfer ? (
+        ) : paymentMethod === PaymentMethods.BankTransfer ? (
           <Badge>
             <div className="flex items-center gap-2">
-              <LandmarkIcon />
+              <LandmarkIcon size={16} />
               <span>Bank Transfer</span>
             </div>
           </Badge>
-        ) : paymentMethodId === PaymentMethods.CashOnDelivery ? (
+        ) : paymentMethod === PaymentMethods.CashOnDelivery ? (
           <Badge>
             <div className="flex items-center gap-2">
-              <CoinsIcon />
+              <CoinsIcon size={16} />
               <span>Cash</span>
             </div>
           </Badge>
@@ -89,31 +95,31 @@ export const OrderRow = ({ order }: { order: Order }) => {
       </td>
       {/* delivery method */}
       <td className="flex items-center">
-        {deliveryMethodId === DeliveryMethods.Standard ? (
+        {deliveryMethod === DeliveryMethods.Standard ? (
           <Badge>
             <div className="flex items-center gap-2">
-              <ShoppingCartIcon />
+              <ShoppingCartIcon size={16} />
               <span>Standard</span>
             </div>
           </Badge>
-        ) : deliveryMethodId === DeliveryMethods.Express ? (
+        ) : deliveryMethod === DeliveryMethods.Express ? (
           <Badge>
             <div className="flex items-center gap-2">
-              <TruckIcon />
+              <TruckIcon size={16} />
               <span>Express</span>
             </div>
           </Badge>
-        ) : deliveryMethodId === DeliveryMethods.Pickup ? (
+        ) : deliveryMethod === DeliveryMethods.Pickup ? (
           <Badge>
             <div className="flex items-center gap-2">
-              <ShoppingBasketIcon />
+              <ShoppingBasketIcon size={16} />
               <span>Pickup</span>
             </div>
           </Badge>
-        ) : deliveryMethodId === DeliveryMethods.SameDay ? (
+        ) : deliveryMethod === DeliveryMethods.SameDay ? (
           <Badge>
             <div className="flex items-center gap-2">
-              <CarIcon />
+              <CarIcon size={16} />
               <span>Same day</span>
             </div>
           </Badge>
@@ -130,8 +136,9 @@ export const OrderRow = ({ order }: { order: Order }) => {
       </td>
       {/* action */}
       <td className="flex items-center">
-        <div className="group cursor-pointer rounded-sm p-2 hover:bg-zinc-200">
-          <EllipsisVerticalIcon className="dark:group-hover:text-zinc-800" />
+        <div className="group flex cursor-pointer items-center gap-2 rounded-lg bg-zinc-100 p-2 hover:bg-zinc-200 dark:text-black">
+          <EyeIcon className="dark:group-hover:text-zinc-800" size={20} />
+          <span>Details</span>
         </div>
       </td>
     </Table.Row>

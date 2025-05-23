@@ -68,7 +68,6 @@ export const orderSchema = z.object({
   deliveryMethodId: z.number(),
 });
 
-export type Order = z.infer<typeof orderSchema>;
 export type Employees = z.infer<typeof employeeSchema>;
 
 export type Product = {
@@ -82,4 +81,26 @@ export type Product = {
   isActive: boolean;
   reviews: number | null;
   rating: number | null;
+};
+
+export type Order = {
+  customerId: string;
+  status: "pending" | "processing" | "shipped" | "delivered" | "cancelled";
+  totalAmount: number;
+  paymentMethod: 1 | 2 | 3 | 4;
+  deliveryMethod: 1 | 2 | 3 | 4;
+  shippedAt?: Date;
+  createdAt: Date;
+  updatedAt?: Date;
+  customers: Customer;
+  employees?: Employee;
+};
+
+export type Customer = {
+  name: string;
+  email: string;
+};
+
+export type Employee = {
+  name: string;
 };

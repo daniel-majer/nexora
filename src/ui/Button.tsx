@@ -33,7 +33,7 @@ export const Button = ({
   return (
     <button
       onClick={onClick}
-      className={`cursor-pointer rounded-md font-semibold transition duration-500 hover:opacity-80 ${classNamesMap[variant]} ${className} ${sizeClassMap[size]}`}
+      className={`cursor-pointer whitespace-nowrap rounded-md font-semibold transition duration-500 hover:opacity-80 ${classNamesMap[variant]} ${className} ${sizeClassMap[size]}`}
       {...rest}
     >
       {children}
