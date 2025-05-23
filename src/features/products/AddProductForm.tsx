@@ -8,7 +8,7 @@ import { FileUpload } from "../../ui/InputFile";
 import { Select } from "../../ui/Select";
 import { SpinnerMini } from "../../ui/SpinnerMini";
 import { Textarea } from "../../ui/Textarea";
-import { useProductOperations } from "../../services/products/useProductOperations";
+import { useProductOperations } from "./useProductOperations";
 
 export const AddProductForm = ({
   close,

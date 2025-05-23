@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import supabase from "../supabase";
+import supabase from "../../services/supabase";
 
 export function useDeleteAllProducts() {
   const queryClient = useQueryClient();

@@ -114,7 +114,9 @@ const Row = ({ children }: ChildrenProp) => {
   );
 };
 
-const Footer = () => {};
+const Footer = ({ children }: ChildrenProp) => {
+  return children;
+};
 
 Table.Header = Header;
 Table.Row = Row;

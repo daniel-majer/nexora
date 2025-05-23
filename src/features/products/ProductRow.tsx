@@ -5,7 +5,6 @@ import {
   StarIcon,
   Trash2Icon,
 } from "lucide-react";
-import { useProductOperations } from "../../services/products/useProductOperations";
 import type { Product } from "../../types/types";
 import Badge from "../../ui/Badge";
 import { Delete } from "../../ui/Delete";
@@ -13,6 +12,7 @@ import { Modal } from "../../ui/Modal";
 import Table from "../../ui/Table";
 import Tooltip from "../../ui/Tooltip";
 import { AddProductForm } from "./AddProductForm";
+import { useProductOperations } from "./useProductOperations";
 
 export const ProductRow = ({
   product,
@@ -98,8 +98,8 @@ export const ProductRow = ({
       </td>
       <td className="flex items-center">{price} €</td>
       <td className="flex items-center">
-        <Badge variant={isActive ? "success" : "danger"}>
-          {isActive ? "Active" : "Inactive"}
+        <Badge variant={isActive === "true" ? "success" : "danger"}>
+          {isActive === "true" ? "Active" : "Inactive"}
         </Badge>
       </td>
       <td className="flex items-center">{reviews}</td>
@@ -115,7 +115,6 @@ export const ProductRow = ({
               <StarIcon size={16} className={` `} />
             </span>
           </Badge>
-          {/*  */}
         </span>
       </td>
       <td className="flex items-center">

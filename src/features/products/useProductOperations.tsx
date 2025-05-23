@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { Product } from "../../types/types";
 import { SUPABASE_URL } from "../../types/constants";
-import supabase from "../supabase";
 import { isFileList, removeDiacritics } from "../../utils/helper";
+import supabase from "../../services/supabase";
 
 type CreateProps = {
   product: Product;

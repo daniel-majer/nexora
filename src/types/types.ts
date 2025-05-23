@@ -3,73 +3,6 @@ export interface ChildrenProp {
   children: React.ReactNode;
 }
 
-export const productSchema = z.object({
-  created_at: z.date(),
-  id: z.number(),
-  name: z.string(),
-  description: z.string(),
-  price: z.number(),
-  imageUrl: z.string(),
-  category: z.string(),
-  stock: z.number(),
-  rating: z.number().optional(),
-  reviews: z.number().optional(),
-  isActive: z.boolean(),
-});
-
-export const customerSchema = z.object({
-  id: z.number(),
-  name: z.string(),
-  email: z.string().email(),
-});
-
-export const employeeSchema = z.object({
-  id: z.number(),
-  name: z.string(),
-  email: z.string().email(),
-  position: z.string(),
-  phone: z.string(),
-  hired: z
-    .string()
-    .regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format, expected YYYY-MM-DD"),
-  birth: z
-    .string()
-    .regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format, expected YYYY-MM-DD"),
-  department: z.string(),
-});
-
-export const orderItemSchema = z.object({
-  id: z.number(),
-  orderId: z.number(),
-  productId: z.number(),
-  quantity: z.number(),
-  unitPrice: z.number(),
-  product: productSchema.optional(),
-});
-
-export const orderSchema = z.object({
-  id: z.number(),
-  orderDate: z.date(),
-  customerId: z.number(),
-  employeeId: z.number().nullable(),
-  status: z.enum([
-    "pending",
-    "processing",
-    "shipped",
-    "delivered",
-    "cancelled",
-  ]),
-  totalAmount: z.number(),
-  shippedDate: z.coerce.date().nullable(),
-  customers: customerSchema.optional(),
-  employees: employeeSchema.optional(),
-  orderItems: z.array(orderItemSchema).optional(),
-  paymentMethodId: z.number(),
-  deliveryMethodId: z.number(),
-});
-
-export type Employees = z.infer<typeof employeeSchema>;
-
 export type Product = {
   id: string;
   name: string;
@@ -78,7 +11,7 @@ export type Product = {
   imageUrl?: string | FileList;
   category: string;
   stock: number;
-  isActive: boolean;
+  isActive: string;
   reviews: number | null;
   rating: number | null;
 };
@@ -104,3 +37,45 @@ export type Customer = {
 export type Employee = {
   name: string;
 };
+
+// 🧑‍💼 Employee schema
+export const EmployeeSchema = z.object({
+  name: z.string(),
+});
+
+// 👤 Customer schema
+export const CustomerSchema = z.object({
+  name: z.string(),
+  email: z.string().email(),
+});
+
+// 📦 Order schema
+export const OrderSchema = z.object({
+  customerId: z.string(),
+  status: z.enum([
+    "pending",
+    "processing",
+    "shipped",
+    "delivered",
+    "cancelled",
+  ]),
+  totalAmount: z.number(),
+  paymentMethod: z.union([
+    z.literal(1),
+    z.literal(2),
+    z.literal(3),
+    z.literal(4),
+  ]),
+  deliveryMethod: z.union([
+    z.literal(1),
+    z.literal(2),
+    z.literal(3),
+    z.literal(4),
+  ]),
+  shippedAt: z.coerce.date().optional(),
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date().optional(),
+  customers: CustomerSchema,
+  employees: EmployeeSchema,
+});
+export const OrdersArraySchema = z.array(OrderSchema);

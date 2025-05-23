@@ -1,23 +1,20 @@
 import React from "react";
-import { useOrders } from "../../services/apiOrders";
-import Table from "../../ui/Table";
-import { orderHeader } from "../../data/table-headers";
-import type { Order } from "../../types/types";
-import { OrderRow } from "./OrderRow";
-import { FilterByNameInput } from "../../ui/FilterByNameInput";
-import { ToggleButtons } from "../../ui/ToggleButtons";
-import { SortSelect } from "../../ui/SortSelect";
+import { useSearchParams } from "react-router";
 import {
   deliveryMethodOptions,
-  filterOptions,
   paymentMethodOptions,
   statusOptions,
-  toggleOptions,
 } from "../../data/filterOptions";
-import { sortOptions, sortOrders } from "../../data/sortOptions";
-import { AddProduct } from "../products/AddProduct";
-import { useSearchParams } from "react-router";
+import { sortOrders } from "../../data/sortOptions";
+import { orderHeader } from "../../data/table-headers";
 import { useSortBy } from "../../hooks/useSortBy";
+import { useOrders } from "../../services/apiOrders";
+import type { Order } from "../../types/types";
+import { FilterByNameInput } from "../../ui/FilterByNameInput";
+import { Pagination } from "../../ui/Pagination";
+import { SortSelect } from "../../ui/SortSelect";
+import Table from "../../ui/Table";
+import { OrderRow } from "./OrderRow";
 
 export const OrderTable = () => {
   const { data, isLoading } = useOrders();
@@ -30,7 +27,7 @@ export const OrderTable = () => {
   const filterByDelivery = searchParams.get("deliveryMethod") || "all";
   const filterByName = searchParams.get("name") || "";
 
-  filterOrders = (data ?? [])
+  filterOrders = (data?.orders ?? [])
     .filter((p) =>
       filterByStatus === "all" ? true : p.status === filterByStatus,
     )
@@ -53,9 +50,11 @@ export const OrderTable = () => {
   /* SORT BY */
   const { sortedData } = useSortBy<Order>({
     field: "createdAt-asc",
-    originData: data ?? [],
+    originData: data?.orders ?? [],
     filterData: filterOrders,
   });
+
+  console.log(sortedData);
 
   return (
     <React.Fragment>
@@ -86,6 +85,7 @@ export const OrderTable = () => {
           )}
         />
       </Table>
+      <Pagination count={data?.count!} />
     </React.Fragment>
   );
 };
