@@ -1,7 +1,7 @@
 export const SUPABASE_URL =
   "https://rhualnaakqnfdhqhjege.supabase.co/storage/v1/object/public";
 
-export const PAGE_SIZE = 10;
+export const PAGE_SIZE = 2;
 
 export const Status = {
   Pending: "pending",

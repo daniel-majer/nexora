@@ -13,9 +13,11 @@ export const ToggleButtons = ({ options, field, value }: ToggleProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const param = searchParams.get(field) || value;
+  const page = searchParams.get("page");
 
   function setParam(option: string) {
     searchParams.set(field, option);
+   if(page) searchParams.set("page", "1");
     setSearchParams(searchParams);
   }
 

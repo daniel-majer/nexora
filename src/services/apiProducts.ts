@@ -9,10 +9,10 @@ type FilterProp = {
 
 type GetProductsProps = {
   page: number;
-  sortBy: string;
-  filterByCategory: FilterProp;
-  filterByStatus: FilterProp;
-  name: string | null;
+  sortBy?: string;
+  filterByCategory?: FilterProp;
+  filterByStatus?: FilterProp;
+  name?: string | null;
 };
 
 /* get products from API */

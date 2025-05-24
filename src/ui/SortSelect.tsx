@@ -22,9 +22,11 @@ export const SortSelect = ({
   const [searchParams, setSearchParams] = useSearchParams();
 
   const sortBy = searchParams.get(field) || value;
+  const page = searchParams.get("page");
 
   function setSortBy(e: React.ChangeEvent<HTMLSelectElement>) {
     searchParams.set(field, e.target.value);
+    if (page) searchParams.set("page", "1");
     setSearchParams(searchParams);
   }
 
