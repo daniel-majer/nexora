@@ -1,5 +1,4 @@
 import React from "react";
-import { useSearchParams } from "react-router";
 import {
   deliveryMethodOptions,
   paymentMethodOptions,
@@ -7,55 +6,16 @@ import {
 } from "../../data/filterOptions";
 import { sortOrders } from "../../data/sortOptions";
 import { orderHeader } from "../../data/table-headers";
-import { useSortBy } from "../../hooks/useSortBy";
-import { useOrders } from "../../services/apiOrders";
 import type { Order } from "../../types/types";
 import { FilterByNameInput } from "../../ui/FilterByNameInput";
 import { Pagination } from "../../ui/Pagination";
 import { SortSelect } from "../../ui/SortSelect";
 import Table from "../../ui/Table";
 import { OrderRow } from "./OrderRow";
+import { useOrders } from "./useOrders";
 
 export const OrderTable = () => {
-  const { data, isLoading } = useOrders();
-  const [searchParams] = useSearchParams();
-  let filterOrders: Order[] = [];
-
-  /* FILTER BY STATUS AND CATEGORY */
-  const filterByStatus = searchParams.get("status") || "all";
-  const filterByPayment = searchParams.get("paymentMethod") || "all";
-  const filterByDelivery = searchParams.get("deliveryMethod") || "all";
-  const filterByName = searchParams.get("name") || "";
-
-  filterOrders = (data?.orders ?? [])
-    .filter((p) =>
-      filterByStatus === "all" ? true : p.status === filterByStatus,
-    )
-    .filter((p) =>
-      filterByPayment === "all"
-        ? true
-        : String(p.paymentMethod) === filterByPayment,
-    )
-    .filter((p) =>
-      filterByDelivery === "all"
-        ? true
-        : String(p.deliveryMethod) === filterByDelivery,
-    )
-    .filter((p) =>
-      filterByName === "all"
-        ? true
-        : p.customers.name.toLowerCase().includes(filterByName.toLowerCase()),
-    );
-
-  /* SORT BY */
-  const { sortedData } = useSortBy<Order>({
-    field: "createdAt-asc",
-    originData: data?.orders ?? [],
-    filterData: filterOrders,
-  });
-
-  console.log(sortedData);
-
+  const { orders, isLoading, count } = useOrders();
   return (
     <React.Fragment>
       <div className="ml-auto flex w-full items-center gap-4">
@@ -75,17 +35,17 @@ export const OrderTable = () => {
       </div>
       <Table
         isLoading={isLoading}
-        columns="0.4fr 4fr 2.5fr 3fr 2fr 3fr 2fr 2.5fr 2fr"
+        columns="0.4fr 4fr 2.5fr 3fr 2fr 3fr 2fr 2.5fr"
       >
         <Table.Header data={orderHeader} />
         <Table.Body
-          data={sortedData}
+          data={orders}
           render={(order: Order) => (
             <OrderRow order={order} key={order.createdAt.toString()} />
           )}
         />
       </Table>
-      <Pagination count={data?.count!} />
+      <Pagination count={count} />
     </React.Fragment>
   );
 };

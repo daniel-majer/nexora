@@ -1,44 +1,95 @@
 import supabase from "./supabase";
-import { OrdersArraySchema, type Order } from "../types/types";
-import { useQuery } from "@tanstack/react-query";
-import { useSearchParams } from "react-router";
 import { PAGE_SIZE } from "../types/constants";
+import type { FilterProp } from "./apiProducts";
+import type { Order } from "../types/types";
 
-async function getOrders(page: number) {
-  const from = (page - 1) * PAGE_SIZE;
-  const to = from + PAGE_SIZE - 1;
-  console.log(page, from, to);
+type OrdersProps = {
+  page: number;
+  sortBy: string;
+  name: string;
+  status: FilterProp;
+  payment: FilterProp;
+  delivery: FilterProp;
+};
 
-  const {
-    data: orders,
-    error,
-    count,
-  } = await supabase
-    .from("orders")
-    .select(
-      `
-    *,
-    customers ( * ),
-    order_items ( * ),
-    employees ( name )
-  `,
-      { count: "exact" },
-    )
-    .range(from, to);
+export async function getOrders({
+  page,
+  sortBy,
+  name,
+  status,
+  payment,
+  delivery,
+}: OrdersProps) {
+  let query = supabase.from("orders").select(
+    `
+*,
+customers ( * ),
+order_items ( * )
+`,
+    { count: "exact" },
+  );
+
+  /* SORT BY */
+  if (sortBy) {
+    const [field, value] = sortBy.split("-");
+    query = query.order(field ?? "createdAt", { ascending: value === "asc" });
+  }
+
+  /* FILTER BY STATUS */
+  if (status) {
+    query = (query as any)[status.method || "eq"](status.field, status.value);
+  }
+  /* FILTER BY PAYMENTS */
+  if (payment) {
+    query = (query as any)[payment.method || "eq"](
+      payment.field,
+      payment.value,
+    );
+  }
+  /* FILTER BY DELIVERIES */
+  if (delivery) {
+    query = (query as any)[delivery.method || "eq"](
+      delivery.field,
+      delivery.value,
+    );
+  }
+
+  /* PAGINATION */
+  if (page) {
+    const from = (page - 1) * PAGE_SIZE;
+    const to = from + PAGE_SIZE - 1;
+    query = query.range(from, to);
+  }
+
+  /* FILTER BY NAME */
+  if (name) {
+    const { data: customerIds, error: customerError } = await supabase
+      .from("customers")
+      .select("id")
+      .ilike("name", `%${name}%`);
+
+    if (customerError) throw new Error("Could not filter customers");
+
+    const ids = customerIds.map((c) => c.id);
+
+    query = query.in("customerId", ids);
+  }
+
+  const { data: orders, error, count } = await query;
 
   if (error) throw new Error("Orders could not be loaded");
 
-  console.log(orders);
-
-  return { orders: orders as Order[], count };
+  return { orders, count };
 }
 
-export function useOrders() {
-  const [searchParams] = useSearchParams();
-  const page = Number(searchParams.get("page")) || 1;
+export async function getOrder({ id }: { id: string }) {
+  let { data, error } = await supabase
+    .from("orders")
+    .select(`*, customers ( * ), order_items ( * )`)
+    .eq("id", id)
+    .single();
 
-  return useQuery({
-    queryKey: ["orders", page],
-    queryFn: () => getOrders(page),
-  });
+  if (error) throw new Error("Order could not be loaded");
+
+  return data;
 }

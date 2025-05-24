@@ -1,7 +1,6 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSearchParams } from "react-router";
 import { getProducts } from "../../services/apiProducts";
-import React from "react";
 import { PAGE_SIZE } from "../../types/constants";
 
 export function useGetProducts() {
@@ -35,7 +34,7 @@ export function useGetProducts() {
   const { data: { products, count } = {}, isLoading } = useQuery({
     queryKey: ["products", sortBy, category, status, name, page],
     queryFn: () =>
-      getProducts({ page, sortBy, filterByCategory, filterByStatus, name }),
+      getProducts({ sortBy, filterByCategory, filterByStatus, name, page }),
   });
 
   /* PRE-FETCH */
@@ -47,6 +46,10 @@ export function useGetProducts() {
       queryKey: ["products", sortBy, category, status, name, page + 1],
       queryFn: () =>
         getProducts({
+          sortBy,
+          filterByCategory,
+          filterByStatus,
+          name,
           page: page + 1,
         }),
     });
@@ -56,6 +59,10 @@ export function useGetProducts() {
       queryKey: ["products", sortBy, category, status, name, page - 1],
       queryFn: () =>
         getProducts({
+          sortBy,
+          filterByCategory,
+          filterByStatus,
+          name,
           page: page - 1,
         }),
     });

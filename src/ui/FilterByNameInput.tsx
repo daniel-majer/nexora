@@ -6,9 +6,12 @@ export const FilterByNameInput = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const getParam = searchParams.get("name") || "";
+  const page = searchParams.get("page");
 
   function setParam(value: string) {
     searchParams.set("name", value);
+    if (page) searchParams.set("page", "1");
+
     setSearchParams(searchParams);
   }
 

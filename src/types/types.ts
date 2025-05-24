@@ -17,6 +17,7 @@ export type Product = {
 };
 
 export type Order = {
+  id: string;
   customerId: string;
   status: "pending" | "processing" | "shipped" | "delivered" | "cancelled";
   totalAmount: number;
@@ -26,22 +27,22 @@ export type Order = {
   createdAt: Date;
   updatedAt?: Date;
   customers: Customer;
-  employees?: Employee;
+  paymentStatus: "pending" | "paid" | "failed";
+  order_items: OrderItems[];
+};
+
+type OrderItems = {
+  orderId: string;
+  productId: string;
+  quantity: number;
 };
 
 export type Customer = {
   name: string;
   email: string;
+  phone: string;
+  address: string;
 };
-
-export type Employee = {
-  name: string;
-};
-
-// 🧑‍💼 Employee schema
-export const EmployeeSchema = z.object({
-  name: z.string(),
-});
 
 // 👤 Customer schema
 export const CustomerSchema = z.object({
@@ -76,6 +77,5 @@ export const OrderSchema = z.object({
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date().optional(),
   customers: CustomerSchema,
-  employees: EmployeeSchema,
 });
 export const OrdersArraySchema = z.array(OrderSchema);

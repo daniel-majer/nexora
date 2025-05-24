@@ -1,7 +1,7 @@
 import { PAGE_SIZE } from "../types/constants";
 import supabase from "./supabase";
 
-type FilterProp = {
+export type FilterProp = {
   field: string;
   method: string;
   value: string;
@@ -25,6 +25,13 @@ export async function getProducts({
 }: GetProductsProps) {
   let query = supabase.from("products").select("*", { count: "exact" });
 
+  /* PAGINATION */
+  if (page) {
+    const from = (page - 1) * PAGE_SIZE;
+    const to = from + PAGE_SIZE - 1;
+    query = query.range(from, to);
+  }
+
   /* SORT BY */
   if (sortBy) {
     const [field, order] = sortBy.split("-");
@@ -33,14 +40,14 @@ export async function getProducts({
 
   /* FILTER BY CATEGORY */
   if (filterByCategory) {
-    query = query[(filterByCategory.method = "eq")](
+    query = (query as any)[filterByCategory.method || "eq"](
       filterByCategory.field,
       filterByCategory.value,
     );
   }
   /* FILTER BY STATUS */
   if (filterByStatus) {
-    query = query[(filterByStatus.method = "eq")](
+    query = (query as any)[filterByStatus.method || "eq"](
       filterByStatus.field,
       filterByStatus.value,
     );
@@ -48,14 +55,7 @@ export async function getProducts({
 
   /* FILTER BY NAME */
   if (name) {
-    query = query.ilike("name", `%${name}%`);
-  }
-
-  /* PAGINATION */
-  if (page) {
-    const from = (page - 1) * PAGE_SIZE;
-    const to = from + PAGE_SIZE - 1;
-    query = query.range(from, to);
+    query = query.ilike("name", `%${name.trim()}%`);
   }
 
   const { data: products, error, count } = await query;

@@ -17,7 +17,7 @@ export const ToggleButtons = ({ options, field, value }: ToggleProps) => {
 
   function setParam(option: string) {
     searchParams.set(field, option);
-   if(page) searchParams.set("page", "1");
+    if (page) searchParams.set("page", "1");
     setSearchParams(searchParams);
   }
 
@@ -27,7 +27,7 @@ export const ToggleButtons = ({ options, field, value }: ToggleProps) => {
         <button
           key={option.value}
           onClick={() => setParam(option.value)}
-          className={`cursor-pointer rounded-md px-4 py-2 text-sm font-medium text-gray-600 transition duration-500 dark:text-gray-300 dark:hover:bg-purple-700 ${param === option.value ? "bg-purple-900 text-white shadow hover:bg-purple-800 dark:bg-purple-700 dark:text-white dark:hover:bg-purple-600" : "text-gray-600 dark:text-white dark:hover:bg-purple-700"}`}
+          className={`cursor-pointer rounded-md px-4 py-2 text-sm font-medium text-gray-600 transition duration-500 dark:text-gray-300 dark:hover:bg-purple-700 ${param === option.value ? "bg-purple-900 text-white shadow hover:bg-purple-800 dark:bg-purple-700 dark:text-white dark:hover:bg-purple-600" : "text-gray-600 dark:bg-zinc-900 dark:text-white dark:hover:bg-purple-700"}`}
         >
           {option.label}
         </button>

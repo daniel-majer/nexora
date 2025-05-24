@@ -26,18 +26,5 @@ export const orderHeader = [
   "Status",
   "Delivery method",
   "Total",
-  "Processed by",
   "Action",
 ];
-
-export const employeeHeader = [
-  "Name",
-  "Email",
-  "Position",
-  "Department",
-  "Hired",
-  "Phone",
-  "Age",
-  "Action",
-];
-// const { name, email, position, department, hired, phone, birth  } = employee;

@@ -38,10 +38,14 @@ export const SortSelect = ({
       <select
         value={sortBy}
         onChange={setSortBy}
-        className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-700 shadow-sm transition duration-500 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+        className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-700 shadow-sm transition duration-500 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 focus:outline-none dark:border-gray-700 dark:bg-zinc-900 dark:text-white"
       >
         {options.map((opt) => (
-          <option key={opt.value} value={opt.value} className="text-black">
+          <option
+            key={opt.value}
+            value={opt.value}
+            className="text-black dark:text-white"
+          >
             {opt.label}
           </option>
         ))}

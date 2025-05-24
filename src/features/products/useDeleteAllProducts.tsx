@@ -12,14 +12,23 @@ export function useDeleteAllProducts() {
       queryClient.invalidateQueries({ queryKey: ["products"] });
     },
     onError: (error) => {
-      console.error("Error creating product:", error);
+      console.error("Error deleting product:", error);
     },
   });
 }
 
 async function deleteProducts({ products }: { products: string[] }) {
   if (products.length === 0) return;
-  console.log(products);
+
+  const { error: orderItemsError } = await supabase
+    .from("order_items")
+    .delete()
+    .in("productId", products);
+
+  if (orderItemsError) {
+    console.error("Chyba pri mazani order_items:", orderItemsError);
+    throw orderItemsError;
+  }
 
   const { error } = await supabase.from("products").delete().in("id", products);
 

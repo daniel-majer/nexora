@@ -1,21 +1,22 @@
+import { format } from "date-fns";
 import {
   CarIcon,
   CircleUserRoundIcon,
   CoinsIcon,
   CreditCardIcon,
-  EllipsisVerticalIcon,
   EyeIcon,
   LandmarkIcon,
   ShoppingBasketIcon,
   ShoppingCartIcon,
   TruckIcon,
 } from "lucide-react";
-import type { Order } from "../../types/types";
-import Table from "../../ui/Table";
-import { format } from "date-fns";
-import { DeliveryMethods, PaymentMethods, Status } from "../../types/constants";
-import Badge from "../../ui/Badge";
+import { NavLink } from "react-router";
 import paypal from "../../assets/paypal-svgrepo-com.svg";
+import { DeliveryMethods, PaymentMethods, Status } from "../../types/constants";
+import type { Order } from "../../types/types";
+import Badge from "../../ui/Badge";
+import Table from "../../ui/Table";
+import { formatCurrency } from "../../utils/helper";
 
 export const OrderRow = ({ order }: { order: Order }) => {
   const {
@@ -25,8 +26,10 @@ export const OrderRow = ({ order }: { order: Order }) => {
     totalAmount,
     createdAt,
     customers,
-    employees,
+    id,
   } = order;
+
+  console.log(order);
 
   return (
     <Table.Row>
@@ -35,9 +38,9 @@ export const OrderRow = ({ order }: { order: Order }) => {
       <td className="flex items-center gap-2">
         <CircleUserRoundIcon size={30} />
         <div className="flex flex-col">
-          <span>{customers.name}</span>
+          <span>{customers?.name}</span>
           <span className="text-sm text-zinc-500 dark:text-zinc-400">
-            {customers.email}
+            {customers?.email}
           </span>
         </div>
       </td>
@@ -128,18 +131,17 @@ export const OrderRow = ({ order }: { order: Order }) => {
         )}
       </td>
       {/* total */}
-      <td className="flex items-center">{totalAmount} €</td>
-      {/* employee */}
-      <td className="flex items-center gap-2">
-        <CircleUserRoundIcon />
-        <span>{employees?.name}</span>
-      </td>
+      <td className="flex items-center">{formatCurrency(totalAmount)}</td>
+
       {/* action */}
       <td className="flex items-center">
-        <div className="group flex cursor-pointer items-center gap-2 rounded-lg bg-zinc-100 p-2 hover:bg-zinc-200 dark:text-black">
+        <NavLink
+          to={id}
+          className="group flex cursor-pointer items-center gap-2 rounded-lg bg-zinc-200 p-2 hover:bg-zinc-200 dark:text-black"
+        >
           <EyeIcon className="dark:group-hover:text-zinc-800" size={20} />
           <span>Details</span>
-        </div>
+        </NavLink>
       </td>
     </Table.Row>
   );
