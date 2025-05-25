@@ -74,7 +74,7 @@ const Toggle = ({ id }: { id: string }) => {
 };
 
 const List = ({ id, children }: { id: string; children: React.ReactNode }) => {
-  const { selectedId, setSelectedId, position } = useTooltip();
+  const { selectedId, setSelectedId } = useTooltip();
   const { modalRef } = useOutsideClose({ setOpenName: setSelectedId });
 
   if (selectedId !== id) return null;

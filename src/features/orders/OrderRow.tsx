@@ -17,8 +17,9 @@ import type { Order } from "../../types/types";
 import Badge from "../../ui/Badge";
 import Table from "../../ui/Table";
 import { formatCurrency } from "../../utils/helper";
+import type { Orders } from "../../types/supabase-types";
 
-export const OrderRow = ({ order }: { order: Order }) => {
+export const OrderRow = ({ order }: { order: Orders }) => {
   const {
     status,
     paymentMethod,
@@ -28,8 +29,6 @@ export const OrderRow = ({ order }: { order: Order }) => {
     customers,
     id,
   } = order;
-
-  console.log(order);
 
   return (
     <Table.Row>
@@ -137,7 +136,7 @@ export const OrderRow = ({ order }: { order: Order }) => {
       <td className="flex items-center">
         <NavLink
           to={id}
-          className="group flex cursor-pointer items-center gap-2 rounded-lg bg-zinc-200 p-2 hover:bg-zinc-200 dark:text-black"
+          className="group flex cursor-pointer items-center gap-2 rounded-lg bg-zinc-200 px-3 py-1 hover:bg-zinc-200 dark:text-black"
         >
           <EyeIcon className="dark:group-hover:text-zinc-800" size={20} />
           <span>Details</span>

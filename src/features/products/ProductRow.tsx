@@ -47,7 +47,6 @@ export const ProductRow = ({
         onError: (error) => console.error("Error deleting product:", error),
       },
     );
-    if (productsDelete.length) console.log(productsDelete, id);
   }
 
   function handleCheckbox() {
@@ -149,6 +148,8 @@ export const ProductRow = ({
               <Delete
                 isPending={isPending}
                 handle={() => deleteProduct(product.id)}
+                title="Delete product"
+                message="Are you sure you want to delete this product? This action cannot be undone."
               />
             </Modal.Window>
 

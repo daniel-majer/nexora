@@ -61,6 +61,13 @@ export const ProductTable = () => {
             <Modal.Window name="delete">
               <Delete
                 isPending={isPending}
+                title={
+                  productsDelete.length > 1
+                    ? "Delete products"
+                    : "Delete product"
+                }
+                message={`Are you sure you want to delete ${productsDelete.length > 1 ? "these products ?" : "this product ?"} This action cannot be
+        undone.`}
                 handle={async () => {
                   await mutateAsync(
                     { products: productsDelete },

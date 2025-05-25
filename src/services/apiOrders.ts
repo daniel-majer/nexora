@@ -1,7 +1,7 @@
 import supabase from "./supabase";
 import { PAGE_SIZE } from "../types/constants";
 import type { FilterProp } from "./apiProducts";
-import type { Order } from "../types/types";
+import { OrderSchema, OrdersWithRelationsSchema } from "../types/schema-orders";
 
 type OrdersProps = {
   page: number;
@@ -75,21 +75,62 @@ order_items ( * )
     query = query.in("customerId", ids);
   }
 
-  const { data: orders, error, count } = await query;
+  const { data, error, count } = await query;
 
   if (error) throw new Error("Orders could not be loaded");
 
-  return { orders, count };
+  /* VALIDATION */
+  try {
+    const orders = OrdersWithRelationsSchema.parse(data);
+    return { orders, count };
+  } catch (e) {
+    console.error("Validation failed:", e, "Data was:", data);
+    throw new Error("Validation failed for orders");
+  }
 }
 
 export async function getOrder({ id }: { id: string }) {
-  let { data, error } = await supabase
+  const { data: order, error } = await supabase
     .from("orders")
-    .select(`*, customers ( * ), order_items ( * )`)
+    .select(`*, customers ( * ), order_items ( *, products ( * ) )`)
     .eq("id", id)
     .single();
 
   if (error) throw new Error("Order could not be loaded");
 
-  return data;
+  /* VALIDATION */
+  try {
+    const data = OrderSchema.parse(order);
+    return data;
+  } catch (e) {
+    console.error("Validation failed:", e, "Data was:", order);
+    throw new Error("Validation failed for orders");
+  }
+  // return data;
+}
+
+export async function updateDeleteOrder(id?: string, state?: string) {
+  if (!id) return;
+
+  /*  Update matching rows */
+  if (state) {
+    const { data, error } = await supabase
+      .from("orders")
+      .update({ status: state })
+      .eq("id", id)
+      .select();
+
+    if (error) throw new Error("Order could not be updated");
+
+    /* VALIDATION */
+    // try {
+    //   const data = OrderSchema.parse(order);
+    //   return data;
+    // } catch (e) {
+    //   console.error("Validation failed:", e, "Data was:", order);
+    //   throw new Error("Validation failed for orders");
+    // }
+
+    return data;
+  }
 }

@@ -1,5 +1,4 @@
 import { useSearchParams } from "react-router";
-import type { Product } from "../types/types";
 
 type Option = {
   label: string;

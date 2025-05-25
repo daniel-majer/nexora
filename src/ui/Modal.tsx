@@ -1,7 +1,6 @@
 import React, { cloneElement, type ButtonHTMLAttributes } from "react";
 import { createPortal } from "react-dom";
 import { useOutsideClose } from "../hooks/useOutsideClose";
-import type { keyof } from "zod/v4";
 
 type SizeProps = keyof typeof modalSize;
 

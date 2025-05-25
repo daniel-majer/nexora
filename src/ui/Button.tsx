@@ -1,6 +1,6 @@
 import React, { type ButtonHTMLAttributes } from "react";
 
-const classNamesMap = {
+export const classNamesMap = {
   primary:
     "bg-purple-900 text-white hover:bg-purple-800 dark:bg-purple-700 dark:hover:bg-purple-600",
   secondary: "bg-gray-200 text-black",
@@ -33,7 +33,7 @@ export const Button = ({
   return (
     <button
       onClick={onClick}
-      className={`cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap rounded-md font-semibold transition duration-500 hover:opacity-80 ${classNamesMap[variant]} ${className} ${sizeClassMap[size]}`}
+      className={`cursor-pointer rounded-md font-semibold whitespace-nowrap transition duration-500 hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-50 ${classNamesMap[variant]} ${className} ${sizeClassMap[size]}`}
       {...rest}
     >
       {children}

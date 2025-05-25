@@ -24,6 +24,7 @@ export type Order = {
   paymentMethod: 1 | 2 | 3 | 4;
   deliveryMethod: 1 | 2 | 3 | 4;
   shippedAt?: Date;
+  deliveredAt?: Date;
   createdAt: Date;
   updatedAt?: Date;
   customers: Customer;

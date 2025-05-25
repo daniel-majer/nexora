@@ -1,9 +1,7 @@
 import {
   ChartColumnBigIcon,
-  HeartHandshakeIcon,
   PackageOpenIcon,
   ShoppingCartIcon,
-  UsersIcon,
   type LucideIcon,
 } from "lucide-react";
 

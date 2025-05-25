@@ -13,9 +13,12 @@ import { SortSelect } from "../../ui/SortSelect";
 import Table from "../../ui/Table";
 import { OrderRow } from "./OrderRow";
 import { useOrders } from "./useOrders";
+import type { Orders } from "../../types/supabase-types";
 
 export const OrderTable = () => {
   const { orders, isLoading, count } = useOrders();
+  console.log(orders);
+
   return (
     <React.Fragment>
       <div className="ml-auto flex w-full items-center gap-4">
@@ -40,7 +43,7 @@ export const OrderTable = () => {
         <Table.Header data={orderHeader} />
         <Table.Body
           data={orders}
-          render={(order: Order) => (
+          render={(order: Orders) => (
             <OrderRow order={order} key={order.createdAt.toString()} />
           )}
         />

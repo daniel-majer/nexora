@@ -10,7 +10,6 @@ export const OrderHeading = ({ paymentStatus }: { paymentStatus: string }) => {
 
   return (
     <>
-      {" "}
       <div className="mb-8 flex items-center justify-between">
         <Heading level="h1" className="text-4xl font-extrabold tracking-tight">
           🧾 Order Details

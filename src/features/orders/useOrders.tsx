@@ -1,4 +1,3 @@
-import React from "react";
 import { useSearchParams } from "react-router";
 import { getOrders } from "../../services/apiOrders";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -9,9 +8,9 @@ export const useOrders = () => {
   const page = Number(searchParams.get("page")) || 1;
   const sortBy = searchParams.get("sortBy") || "createdAt-asc";
   const name = searchParams.get("name") || "";
-  const status = searchParams.get("status") || "all";
-  const payment = searchParams.get("paymentMethod") || "all";
-  const delivery = searchParams.get("deliveryMethod") || "all";
+  const status = searchParams.get("status");
+  const payment = searchParams.get("paymentMethod");
+  const delivery = searchParams.get("deliveryMethod");
 
   const queryClient = useQueryClient();
 
