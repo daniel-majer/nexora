@@ -1,4 +1,4 @@
-import React, { type ComponentProps } from "react";
+import { type ComponentProps } from "react";
 
 import { useFormContext } from "react-hook-form";
 
@@ -28,7 +28,7 @@ export const Input = ({
       {label && (
         <label
           htmlFor={name}
-          className="text-sm font-medium text-gray-700 dark:text-white"
+          className="font-medium text-gray-700 dark:text-white"
         >
           {label}
         </label>
