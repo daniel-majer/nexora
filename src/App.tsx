@@ -3,7 +3,7 @@ import { BrowserRouter } from "react-router";
 import { AppLayout } from "./ui/AppLayout";
 import { Dashboard } from "./pages/Dashboard";
 import { Orders } from "./pages/Orders";
-import { Account } from "./pages/Account";
+import { Settings } from "./pages/Settings";
 import { Login } from "./pages/Login";
 import { PageNotFound } from "./pages/PageNotFound";
 import { Products } from "./pages/Products";
@@ -13,6 +13,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { OrderDetail } from "./pages/OrderDetail";
 import { ProtectedRoute } from "./features/login/ProtectedRoute";
 import { Toaster } from "react-hot-toast";
+import { Users } from "./pages/Users";
 
 const queryClient = new QueryClient();
 
@@ -36,7 +37,8 @@ function App() {
               <Route path="orders" element={<Orders />} />
               <Route path="orders/:id" element={<OrderDetail />} />
               <Route path="products" element={<Products />} />
-              <Route path="settings" element={<Account />} />
+              <Route path="settings" element={<Settings />} />
+              <Route path="users" element={<Users />} />
             </Route>
             <Route path="login" element={<Login />} />
             <Route path="*" element={<PageNotFound />} />

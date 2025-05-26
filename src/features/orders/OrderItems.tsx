@@ -16,7 +16,7 @@ export const OrderItems = ({ data }: { data: Orders }) => {
   console.log(data);
 
   return (
-    <div className="mb-8 rounded-2xl border border-gray-200 bg-white p-6 shadow-md dark:border-gray-700 dark:bg-zinc-900">
+    <div className="mb-8 rounded-2xl border border-gray-200 bg-white p-6 shadow-md transition duration-500 dark:border-gray-700 dark:bg-zinc-900">
       <div className="grid grid-cols-3 border-b border-b-zinc-200 text-end font-bold dark:border-b-zinc-700">
         <Heading level="h2" className="mb-4 text-start text-xl font-semibold">
           🛒 Ordered Items
@@ -50,7 +50,7 @@ export const OrderItems = ({ data }: { data: Orders }) => {
         })}
       </ul>
 
-      <div className="mb-6 rounded-lg bg-purple-100 p-4 font-medium dark:bg-green-800/20">
+      <div className="mb-6 rounded-lg bg-purple-100 p-4 font-medium transition duration-500 dark:bg-purple-800/20">
         <div className="flex grow justify-between text-lg">
           <div>
             Sutotal:{" "}

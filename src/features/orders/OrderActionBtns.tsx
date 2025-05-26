@@ -33,7 +33,7 @@ export const OrderActionBtns = ({
             disabled={status === "delivered" || status === "cancelled"}
             size="md"
             variant="delete"
-            className="rounded-lg border border-red-500 px-5 py-2.5 font-semibold text-red-600 transition dark:border-red-400 dark:text-red-400 dark:hover:bg-red-900/20"
+            className="rounded-lg border border-red-500 px-5 py-2.5 font-semibold text-red-600"
           >
             Cancel Order
           </Button>
@@ -42,7 +42,7 @@ export const OrderActionBtns = ({
           <Button
             disabled={status === "delivered" || status === "cancelled"}
             size="md"
-            className="rounded-lg bg-blue-600 px-5 py-2.5 font-semibold text-white transition hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600"
+            className="rounded-lg px-5 py-2.5 font-semibold text-white"
           >
             Save Changes
           </Button>

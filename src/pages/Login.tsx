@@ -33,8 +33,10 @@ export const Login = () => {
 
   const onSubmit = (formData: LoginType) => {
     mutate(formData, {
-      onSuccess: () => {
-        reset({ email: "", password: "" });
+      onSuccess: (data) => {
+        // reset({ email: "", password: "" });
+        console.log(data);
+
         navigate("/", { replace: true });
       },
       onError: () => {

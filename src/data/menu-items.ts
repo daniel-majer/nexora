@@ -1,4 +1,5 @@
 import {
+  UsersRoundIcon,
   ChartColumnBigIcon,
   PackageOpenIcon,
   ShoppingCartIcon,
@@ -15,6 +16,7 @@ const menuNames: MenuItem[] = [
   { name: "Dashboard", path: "/dashboard", icon: ChartColumnBigIcon },
   { name: "Orders", path: "/orders", icon: ShoppingCartIcon },
   { name: "Products", path: "/products", icon: PackageOpenIcon },
+  { name: "Create user", path: "/users", icon: UsersRoundIcon },
 ];
 
 export default menuNames;

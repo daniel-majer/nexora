@@ -2,11 +2,13 @@ import { type ComponentProps } from "react";
 
 import { useFormContext } from "react-hook-form";
 
+import type { RegisterOptions, FieldValues } from "react-hook-form";
+
 type InputProps = {
   name: string;
   label?: string;
   className?: string;
-  validation?: object;
+  validation?: RegisterOptions<FieldValues, string>;
 } & ComponentProps<"input">;
 
 export const Input = ({
@@ -37,7 +39,7 @@ export const Input = ({
         id={name}
         {...register(name, validation)}
         {...rest}
-        className={`rounded-md border px-3 py-2 text-sm transition outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 dark:bg-zinc-800 dark:text-white ${className} ${
+        className={`rounded-md border px-3 py-2 text-sm transition duration-500 outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 dark:bg-zinc-800 dark:text-white ${className} ${
           error ? "border-red-500" : "border-gray-300"
         }`}
       />

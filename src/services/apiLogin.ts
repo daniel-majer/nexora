@@ -9,21 +9,20 @@ export async function login(data: { email: string; password: string }) {
   return credentials;
 }
 
-export async function logOut() {
-  let { error } = await supabase.auth.signOut();
-  if (error) throw new Error("Something went wrong!");
-}
-
 export async function getUser() {
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  const { data: session } = await supabase.auth.getSession();
+  console.log(session);
 
-  if (!session) return null;
+  if (!session.session) return null;
 
   const { data, error } = await supabase.auth.getUser();
 
   if (error) throw new Error("Could not authenticated");
 
   return data.user;
+}
+
+export async function logOut() {
+  let { error } = await supabase.auth.signOut();
+  if (error) throw new Error("Something went wrong!");
 }

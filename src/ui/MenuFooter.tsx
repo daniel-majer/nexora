@@ -1,27 +1,14 @@
 import { LogOutIcon, UserIcon } from "lucide-react";
-import React from "react";
 import { useLogout } from "../features/login/useLogout";
-import toast from "react-hot-toast";
+import { useUser } from "../features/login/useUser";
+import { Avatar } from "./Avatar";
 
 export const MenuFooter = () => {
-  const { mutate: logout, isPending } = useLogout();
+  const { mutate: logout } = useLogout();
 
   return (
     <div className="mt-12 px-5 leading-5 font-medium transition duration-500">
-      <div className="mb-4 flex items-center gap-2">
-        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-zinc-200">
-          <UserIcon className="dark:text-purple-950" />
-        </div>
-        <div>
-          <span className="block font-bold text-purple-950 transition duration-500 dark:text-purple-400">
-            Daniel Majer
-          </span>
-          <span className="font-light text-zinc-500 transition duration-500 dark:text-zinc-200">
-            Admin
-          </span>
-        </div>
-      </div>
-
+      <Avatar />
       <div
         onClick={() => logout()}
         className="flex cursor-pointer items-center gap-2 p-2 py-3 transition duration-500 hover:text-purple-900 dark:hover:text-purple-400"
