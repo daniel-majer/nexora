@@ -5,6 +5,10 @@ import { LoginFooter } from "../features/login/LoginFooter";
 import { Button } from "../ui/Button";
 import { Input } from "../ui/Input";
 import { FormProvider, useForm, type UseFormReturn } from "react-hook-form";
+import { useLogin } from "../features/login/useLogin";
+import { SpinnerMini } from "../ui/SpinnerMini";
+import { useNavigate } from "react-router";
+import toast from "react-hot-toast";
 
 type LoginType = {
   email: string;
@@ -13,18 +17,30 @@ type LoginType = {
 
 export const Login = () => {
   const [visible, setVisible] = React.useState(false);
+  const { mutate, isPending } = useLogin();
+  const navigate = useNavigate();
+
   const methods: UseFormReturn<LoginType> = useForm<LoginType>({
-    defaultValues: { email: "example@nexora.com", password: "qwertz123" },
+    defaultValues: { email: "admin@nexora.com", password: "qwertz123" },
     mode: "onChange",
   });
 
   const {
     handleSubmit,
     formState: { errors },
+    reset,
   } = methods;
 
   const onSubmit = (formData: LoginType) => {
-    console.log(formData);
+    mutate(formData, {
+      onSuccess: () => {
+        reset({ email: "", password: "" });
+        navigate("/", { replace: true });
+      },
+      onError: () => {
+        toast.error("Incorrect email or password. Please try again.");
+      },
+    });
   };
 
   React.useEffect(() => {
@@ -34,7 +50,7 @@ export const Login = () => {
 
   return (
     <div
-      className={`flex h-screen w-screen items-center justify-center gap-60 transition-opacity duration-700 ease-in-out dark:bg-gray-900 ${
+      className={`flex h-screen w-screen items-center justify-center gap-60 p-8 transition-opacity duration-700 ease-in-out dark:bg-gray-900 ${
         visible ? "opacity-100" : "opacity-0"
       }`}
     >
@@ -63,7 +79,7 @@ export const Login = () => {
                 placeholder="Password"
                 label="Password"
                 className="w-full rounded-lg border border-gray-300 p-3 py-3 shadow-md duration-300 ease-in-out placeholder:text-base focus:scale-105 dark:border-gray-700 dark:bg-purple-700 dark:text-gray-300"
-                name="email"
+                name="password"
               />
               <a className="group text-blue-400 transition-all duration-100 ease-in-out">
                 <span className="bg-gradient-to-r from-blue-400 to-blue-400 bg-[length:0%_2px] bg-left-bottom bg-no-repeat text-sm transition-all duration-500 ease-out group-hover:bg-[length:100%_2px]">
@@ -71,10 +87,11 @@ export const Login = () => {
                 </span>
               </a>
               <Button
+                disabled={isPending}
                 className="mt-6 w-full rounded-lg bg-purple-500 p-2 text-white shadow-lg transition duration-300 ease-in-out hover:scale-105 hover:from-purple-500 hover:to-blue-500 dark:text-gray-300"
                 type="submit"
               >
-                LOG IN
+                {isPending ? <SpinnerMini /> : "LOG IN"}
               </Button>
             </form>
           </FormProvider>

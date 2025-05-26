@@ -11,6 +11,8 @@ import { ThemeProvider } from "./context/DarkModeContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { OrderDetail } from "./pages/OrderDetail";
+import { ProtectedRoute } from "./features/login/ProtectedRoute";
+import { Toaster } from "react-hot-toast";
 
 const queryClient = new QueryClient();
 
@@ -20,8 +22,15 @@ function App() {
       <ReactQueryDevtools initialIsOpen />
       <ThemeProvider>
         <BrowserRouter>
+          <Toaster />
           <Routes>
-            <Route element={<AppLayout />}>
+            <Route
+              element={
+                <ProtectedRoute>
+                  <AppLayout />
+                </ProtectedRoute>
+              }
+            >
               <Route index element={<Navigate replace to="dashboard" />} />
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="orders" element={<Orders />} />

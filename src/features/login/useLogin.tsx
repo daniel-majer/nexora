@@ -1,0 +1,13 @@
+import { useMutation } from "@tanstack/react-query";
+import React from "react";
+import { login } from "../../services/apiLogin";
+
+export const useLogin = () => {
+  const { mutate, isPending } = useMutation({
+    mutationFn: (data: { email: string; password: string }) => login(data),
+    onSuccess: (data) => {
+      console.log(data);
+    },
+  });
+  return { mutate, isPending };
+};
