@@ -9,7 +9,7 @@ import {
 } from "react-hook-form";
 import { Button } from "../ui/Button";
 import pug from "../assets/pug2.png";
-import { useCreateUser } from "../features/signup/useCreateUser";
+import { useCreateUser } from "../features/login/useCreateUser";
 import toast from "react-hot-toast";
 
 type UserForm = {

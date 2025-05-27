@@ -21,7 +21,7 @@ export const Login = () => {
   const navigate = useNavigate();
 
   const methods: UseFormReturn<LoginType> = useForm<LoginType>({
-    defaultValues: { email: "admin@nexora.com", password: "qwertz123" },
+    defaultValues: { email: "nexoradotcom@gmail.com", password: "123456789" },
     mode: "onChange",
   });
 

@@ -11,7 +11,6 @@ export async function login(data: { email: string; password: string }) {
 
 export async function getUser() {
   const { data: session } = await supabase.auth.getSession();
-  console.log(session);
 
   if (!session.session) return null;
 

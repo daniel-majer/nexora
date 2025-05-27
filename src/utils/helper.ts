@@ -1,4 +1,6 @@
-export function removeDiacritics(name: string) {
+export function removeDiacritics(name?: string) {
+  if (!name) return;
+  
   return name
     .replaceAll(" ", "")
     .replaceAll("/", "")
