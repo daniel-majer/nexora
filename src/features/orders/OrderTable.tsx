@@ -43,9 +43,7 @@ export const OrderTable = () => {
         <Table.Header data={orderHeader} />
         <Table.Body
           data={orders}
-          render={(order: Orders) => (
-            <OrderRow order={order} key={order.createdAt.toString()} />
-          )}
+          render={(order: Orders) => <OrderRow order={order} key={order.id} />}
         />
       </Table>
       <Pagination count={count} />

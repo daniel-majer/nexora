@@ -5,71 +5,71 @@ import { Tabs } from "../ui/Tabs";
 import { formatCurrency } from "../utils/helper";
 import { TodayOrders } from "../features/Dashboard/TodayOrders";
 import { PieChartGraph } from "../features/Dashboard/PieChart";
+import { useDashboardOrders } from "../features/Dashboard/useDashboardOrders";
+import type { Orders } from "../types/supabase-types";
 
 export const Dashboard = () => {
+  const { data } = useDashboardOrders();
+  if (!data) return;
+
+  const totalSales = data.reduce(
+    (sum, order: Orders) => sum + order.totalAmount,
+    0,
+  );
+
+  const totalShipped = data.filter((order: Orders) => !order.shippedAt);
+  const cancelRate = (
+    (data.filter((order: Orders) => order.status === "cancelled").length /
+      data.length) *
+    100
+  ).toFixed(2);
+
+  const lastOrders = data.slice(0, 5).map((order: Orders) => {
+    return {
+      id: order.id,
+      status: order.status,
+      customer: order.customers.name,
+      total: formatCurrency(order.totalAmount),
+    };
+  });
+
+  // console.log(data);
+
   return (
     <React.Fragment>
       <HeaderDash />
-      <Tabs options={opt} />
+      <Tabs
+        options={[
+          {
+            label: "Orders",
+            value: (data.length * 102).toString(),
+            icon: PackageIcon,
+            colors: { bg: "bg-yellow-200", text: "text-yellow-800" },
+          },
+          {
+            label: "Sales",
+            value: formatCurrency(totalSales),
+            icon: LandmarkIcon,
+            colors: { bg: "bg-green-200", text: "text-green-800" },
+          },
+          {
+            label: "Shipped products",
+            value: (totalShipped.length * 102).toString(),
+            icon: TruckIcon,
+            colors: { bg: "bg-purple-200", text: "text-purple-800" },
+          },
+          {
+            label: "Cancelled rate",
+            value: `${cancelRate} %`,
+            icon: BanIcon,
+            colors: { bg: "bg-red-200", text: "text-red-800" },
+          },
+        ]}
+      />
       <div className="mt-10 grid grid-cols-2 gap-6">
-        <TodayOrders
-          orders={[
-            {
-              status: "cancelled",
-              customer: "Petr Horak",
-              total: formatCurrency(4554),
-            },
-            {
-              status: "delivered",
-              customer: "David Krok",
-              total: formatCurrency(248),
-            },
-            {
-              status: "pending",
-              customer: "Jozef z Bazin",
-              total: formatCurrency(1987),
-            },
-            {
-              status: "shipped",
-              customer: "Dano Drevo",
-              total: formatCurrency(12548),
-            },
-            {
-              status: "processing",
-              customer: "Richard King",
-              total: formatCurrency(1999),
-            },
-          ]}
-        />
-        <PieChartGraph />
+        <TodayOrders orders={lastOrders} />
+        <PieChartGraph data={data} />
       </div>
     </React.Fragment>
   );
 };
-
-const opt = [
-  {
-    label: "Orders",
-    value: "1216",
-    icon: PackageIcon,
-    colors: { bg: "bg-yellow-200", text: "text-yellow-800" },
-  },
-  {
-    label: "Sales",
-    value: formatCurrency(1009235),
-    icon: LandmarkIcon,
-    colors: { bg: "bg-green-200", text: "text-green-800" },
-  },
-  {
-    label: "Shipped products",
-    value: "3097",
-    icon: TruckIcon,
-    colors: { bg: "bg-purple-200", text: "text-purple-800" },
-  },
-  {
-    label: "Cancelled rate",
-    value: "9%",
-    icon: BanIcon,
-    colors: { bg: "bg-red-200", text: "text-red-800" },
-  },
-];

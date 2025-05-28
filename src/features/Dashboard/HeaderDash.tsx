@@ -17,7 +17,7 @@ export const HeaderDash = () => {
       <div>
         <ToggleButtons
           options={[
-            { value: "all", label: "All payments" },
+            { value: "all", label: "All orders" },
             { value: "1", label: "Credit card" },
             { value: "2", label: "PayPal" },
             { value: "3", label: "Bank transfer" },

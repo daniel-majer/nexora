@@ -64,3 +64,21 @@ export async function getProducts({
 
   return { products, count };
 }
+
+export async function deleteProducts({ products }: { products: string[] }) {
+  if (products.length === 0) return;
+
+  const { error: orderItemsError } = await supabase
+    .from("order_items")
+    .delete()
+    .in("productId", products);
+
+  if (orderItemsError) {
+    console.error("Chyba pri mazani order_items:", orderItemsError);
+    throw orderItemsError;
+  }
+
+  const { error } = await supabase.from("products").delete().in("id", products);
+
+  if (error) console.error("Chyba pri mazani:", error);
+}

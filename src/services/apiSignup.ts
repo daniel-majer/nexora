@@ -27,5 +27,6 @@ export async function updateUser({ formData, imgFile, imgName }: UpdateProps) {
     });
 
   if (storageError) throw new Error("Image could not be created");
+  
   return data;
 }

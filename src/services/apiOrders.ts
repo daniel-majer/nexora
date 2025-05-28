@@ -29,10 +29,21 @@ order_items ( * )
     { count: "exact" },
   );
 
+  /* PAGINATION */
+  if (page) {
+    const from = (page - 1) * PAGE_SIZE;
+    const to = from + PAGE_SIZE - 1;
+    query = query.range(from, to);
+  }
+
   /* SORT BY */
   if (sortBy) {
     const [field, value] = sortBy.split("-");
-    query = query.order(field ?? "createdAt", { ascending: value === "asc" });
+    console.log(field, value);
+
+    if (field) {
+      query = query.order(field, { ascending: value === "asc" });
+    }
   }
 
   /* FILTER BY STATUS */
@@ -52,13 +63,6 @@ order_items ( * )
       delivery.field,
       delivery.value,
     );
-  }
-
-  /* PAGINATION */
-  if (page) {
-    const from = (page - 1) * PAGE_SIZE;
-    const to = from + PAGE_SIZE - 1;
-    query = query.range(from, to);
   }
 
   /* FILTER BY NAME */
@@ -106,7 +110,6 @@ export async function getOrder({ id }: { id: string }) {
     console.error("Validation failed:", e, "Data was:", order);
     throw new Error("Validation failed for orders");
   }
-  // return data;
 }
 
 export async function updateDeleteOrder(id?: string, state?: string) {
@@ -121,15 +124,6 @@ export async function updateDeleteOrder(id?: string, state?: string) {
       .select();
 
     if (error) throw new Error("Order could not be updated");
-
-    /* VALIDATION */
-    // try {
-    //   const data = OrderSchema.parse(order);
-    //   return data;
-    // } catch (e) {
-    //   console.error("Validation failed:", e, "Data was:", order);
-    //   throw new Error("Validation failed for orders");
-    // }
 
     return data;
   }
