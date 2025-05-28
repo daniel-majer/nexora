@@ -7,6 +7,7 @@ import { TodayOrders } from "../features/Dashboard/TodayOrders";
 import { PieChartGraph } from "../features/Dashboard/PieChart";
 import { useDashboardOrders } from "../features/Dashboard/useDashboardOrders";
 import type { Orders } from "../types/supabase-types";
+import { AreaSalesChart } from "../features/Dashboard/AreaSalesChart";
 
 export const Dashboard = () => {
   const { data } = useDashboardOrders();
@@ -70,6 +71,8 @@ export const Dashboard = () => {
         <TodayOrders orders={lastOrders} />
         <PieChartGraph data={data} />
       </div>
+
+      <AreaSalesChart data={data} />
     </React.Fragment>
   );
 };
