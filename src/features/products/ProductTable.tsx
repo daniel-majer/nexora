@@ -2,7 +2,6 @@ import React from "react";
 import { filterOptions, toggleOptions } from "../../data/filterOptions";
 import { sortOptions } from "../../data/sortOptions";
 import { CSVHeader, productHeader } from "../../data/table-headers";
-
 import type { Product } from "../../types/types";
 import { Button } from "../../ui/Button";
 import { Delete } from "../../ui/Delete";
@@ -39,10 +38,10 @@ export const ProductTable = () => {
   return (
     <React.Fragment>
       <Tooltip>
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex flex-col items-center justify-between gap-4 2xl:flex-row">
           <Modal>
             {productsDelete.length && products ? (
-              <div className="flex gap-2">
+              <div className="flex gap-2 self-start 2xl:self-auto">
                 <Modal.Open openName="delete">
                   <Button size="md" variant="delete">
                     Delete products
@@ -52,7 +51,7 @@ export const ProductTable = () => {
                   data={products}
                   headers={CSVHeader}
                   filename="products.csv"
-                  className="cursor-pointer rounded-md bg-purple-900 px-4 py-2 text-base font-semibold whitespace-nowrap text-white transition duration-500 hover:bg-purple-800 hover:opacity-80 dark:bg-purple-700 dark:hover:bg-purple-600"
+                  className="cursor-pointer rounded-sm bg-purple-900 px-2 py-1 text-sm font-semibold whitespace-nowrap text-white transition duration-500 hover:bg-purple-800 hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-50 sm:rounded-md sm:px-4 sm:py-2 sm:text-base dark:bg-purple-700 dark:hover:bg-purple-600"
                 >
                   Export to CSV
                 </CSVLink>
@@ -84,17 +83,31 @@ export const ProductTable = () => {
               ></Delete>
             </Modal.Window>
           </Modal>
-          <div className="ml-auto flex w-full items-center gap-4">
-            <FilterByNameInput />
-            <ToggleButtons
-              options={toggleOptions}
-              field="isActive"
-              value="all"
-            />
-            <SortSelect options={filterOptions} field="category" value="all" />
-            <SortSelect options={sortOptions} field="sortBy" value="name-asc" />
+          <div className="ml-auto flex w-full flex-col items-start gap-4 xl:flex-row xl:items-center">
+            <div className="order-1 flex h-full w-full max-w-[992px] items-stretch gap-4 lg:flex-row xl:order-none">
+              <FilterByNameInput />
+              <ToggleButtons
+                options={toggleOptions}
+                field="isActive"
+                value="all"
+              />
+            </div>
+            <div className="flex w-full justify-between gap-2 xl:w-auto">
+              <div className="flex w-full grow gap-0.5 sm:gap-1">
+                <SortSelect
+                  options={filterOptions}
+                  field="category"
+                  value="all"
+                />
+                <SortSelect
+                  options={sortOptions}
+                  field="sortBy"
+                  value="name-asc"
+                />
+              </div>
 
-            <AddProduct />
+              <AddProduct />
+            </div>
           </div>
         </div>
         <Table

@@ -38,7 +38,7 @@ export const Select = ({
         id={name}
         {...register(name, validation)}
         {...rest}
-        className={`rounded-md border px-3 py-2 pr-6 text-sm transition outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 dark:bg-zinc-800 dark:text-white ${className} ${
+        className={`w-full rounded-md border px-3 py-2 pr-6 text-sm transition outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 dark:bg-zinc-800 dark:text-white ${className} ${
           error ? "border-red-500" : "border-gray-300"
         }`}
       >

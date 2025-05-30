@@ -30,14 +30,14 @@ export const SortSelect = ({
   }
 
   return (
-    <div className="flex flex-col gap-1 text-sm">
+    <div className="flex flex-col text-sm">
       {label && (
         <label className="text-gray-600 dark:text-gray-300">{label}</label>
       )}
       <select
         value={sortBy}
         onChange={setSortBy}
-        className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-700 shadow-sm transition duration-500 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 focus:outline-none dark:border-gray-700 dark:bg-zinc-900 dark:text-white"
+        className="h-7 w-full rounded-md sm:rounded-lg border border-gray-300 bg-white text-sm text-gray-700 shadow-sm transition duration-500 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 focus:outline-none sm:h-10 sm:px-4 dark:border-gray-700 dark:bg-zinc-900 dark:text-white"
       >
         {options.map((opt) => (
           <option

@@ -59,7 +59,7 @@ export const AddProductForm = ({
 
   return (
     <FormProvider {...methods}>
-      <div className="mb-4 flex items-center justify-between border-b border-b-zinc-200 pb-4">
+      <div className="mb-4 flex whitespace-nowrap items-center justify-between border-b border-b-zinc-200 pb-4">
         <Heading level="h2" className="dark:text-white">
           {product?.id ? "Update product" : "Add new product"}
         </Heading>
@@ -69,10 +69,10 @@ export const AddProductForm = ({
         />
       </div>
       <form
-        className="flex h-full flex-col justify-between gap-6"
+        className="flex flex-col justify-between gap-6"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className="flex items-start justify-between gap-4">
+        <div className="flex items-start justify-between gap-4 whitespace-nowrap sm:flex-row">
           <Input
             name="name"
             label="Product name"
@@ -105,7 +105,7 @@ export const AddProductForm = ({
             minLength: { value: 10, message: "Minimum 10 characters" },
           }}
         />
-        <div className="flex items-start justify-between gap-4">
+        <div className="flex items-start justify-between gap-4 sm:flex-row">
           <Select
             name="category"
             label="Category"
@@ -131,7 +131,7 @@ export const AddProductForm = ({
             validation={{ required: "Set status" }}
           />
         </div>
-        <div className="flex items-start justify-between gap-4">
+        <div className="flex flex-col items-start justify-between gap-4 sm:flex-row">
           <FileUpload
             name="imageUrl"
             label="Image"

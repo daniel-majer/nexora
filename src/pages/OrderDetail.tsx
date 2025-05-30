@@ -6,9 +6,6 @@ import { OrderItems } from "../features/orders/OrderItems";
 import { OrderSummary } from "../features/orders/OrderSummary";
 import { useOrder } from "../features/orders/useOrder";
 import { Spinner } from "../ui/Spinner";
-import type { Constants } from "../types/supabase";
-
-// type OrderStatus = keyof typeof Constants.public.Enums.orderStatus;
 
 export const OrderDetail = () => {
   const { data, isPending } = useOrder();
@@ -30,7 +27,7 @@ export const OrderDetail = () => {
     );
 
   return (
-    <div className="mx-auto max-w-7xl p-8 text-gray-800 dark:text-gray-100">
+    <div className="mx-auto max-w-7xl  text-gray-800 dark:text-gray-100">
       {/* Order Heading */}
       <OrderHeading paymentStatus={data?.paymentStatus} />
 

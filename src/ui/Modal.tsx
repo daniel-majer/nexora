@@ -74,10 +74,10 @@ const Window = ({
   return createPortal(
     <div>
       {/* Overlay */}
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-xs">
+      <div className="fixed inset-0 z-50 grid place-items-center overflow-y-auto bg-black/30 p-2 backdrop-blur-xs">
         <div
           ref={modalRef}
-          className={`w-full rounded-lg bg-white p-6 shadow-lg dark:border dark:border-zinc-600 dark:bg-zinc-800 ${modalSize[size]}`}
+          className={`w-fit rounded-lg bg-white p-6 shadow-lg dark:border dark:border-zinc-600 dark:bg-zinc-800 ${modalSize[size]}`}
         >
           {cloneChildren}
         </div>

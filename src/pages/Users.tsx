@@ -54,15 +54,19 @@ export const Users = () => {
   return (
     <div>
       <Heading level="h1">Create new user</Heading>
-      <Heading level="h3" className="mt-2 font-extralight text-zinc-500">
-        Fill in the details below to create a new user account.
+      <Heading
+        level="h3"
+        className="mt-2 mb-6 font-extralight text-zinc-500 transition duration-500 dark:text-zinc-300"
+      >
+        Fill out the form below to create a new user account. Enter the required
+        details and submit to add a user to the system.
       </Heading>
 
-      <div className="flex flex-col md:flex md:flex-row md:items-start">
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr]">
         <FormProvider {...methods}>
           <form
             onSubmit={handleSubmit(onSubmit, onError)}
-            className="mt-2 flex w-full flex-col gap-8 rounded-xl px-10 py-8 font-medium md:w-1/2"
+            className="mt-2 flex w-full flex-col gap-2 rounded-xl py-4 font-medium sm:gap-4"
           >
             <div className="flex items-center justify-between">
               <Input
@@ -77,6 +81,7 @@ export const Users = () => {
                 name="email"
                 label="Email address"
                 validation={{
+                  required: "This field is required",
                   pattern: {
                     value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                     message: "Incorrect email format.",
@@ -112,15 +117,17 @@ export const Users = () => {
               />
             </div>
 
-            <div className="ml-auto space-x-4">
-              <Button variant="secondary" type="reset">
+            <div className="ml-auto flex flex-nowrap space-x-4">
+              <Button variant="secondary" size="md" type="reset">
                 Reset form
               </Button>
-              <Button disabled={isPending}>Create user</Button>
+              <Button size="md" disabled={isPending}>
+                Create user
+              </Button>
             </div>
           </form>
         </FormProvider>
-        <img className="md:w-1/2" src={pug} alt="Mike the Pug" />
+        <img className="" src={pug} alt="Mike the Pug" />
       </div>
     </div>
   );

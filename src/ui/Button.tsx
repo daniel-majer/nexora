@@ -9,7 +9,7 @@ export const classNamesMap = {
 };
 
 const sizeClassMap = {
-  sm: "text-sm px-3 py-1.5",
+  sm: "text-xs sm:text-sm px-1.5 py-0.75 sm:px-3 sm:py-1.5",
   md: "text-sm sm:text-base px-2 py-1 sm:px-4 sm:py-2 ",
   lg: "text-lg px-5 py-3",
 };
@@ -33,7 +33,7 @@ export const Button = ({
   return (
     <button
       onClick={onClick}
-      className={`cursor-pointer rounded-md font-semibold whitespace-nowrap transition duration-500 hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-50 ${classNamesMap[variant]} ${className} ${sizeClassMap[size]}`}
+      className={`cursor-pointer rounded-sm font-semibold whitespace-nowrap transition duration-500 hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-50 sm:rounded-md ${classNamesMap[variant]} ${className} ${sizeClassMap[size]}`}
       {...rest}
     >
       {children}

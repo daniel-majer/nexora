@@ -8,7 +8,7 @@ export const MenuContent = () => {
     <>
       <nav className="mt-12 font-medium">
         <span className="hidden text-zinc-400 lg:block">GENERAL</span>
-        <ul className="mt-2">
+        <ul className="mt-2 space-y-2">
           {menuNames.map((menu) => (
             <li
               key={menu.name}
@@ -30,7 +30,7 @@ export const MenuContent = () => {
           <span className="mb-2 hidden text-zinc-400 lg:mt-8 lg:block lg:px-4">
             SYSTEM
           </span>
-          <li className="mt-8 mb-2 transition-all duration-200 hover:text-purple-950 lg:mt-0 lg:mb-0 dark:hover:text-purple-400">
+          <li className="mt-8 mb-3 transition-all duration-200 hover:text-purple-950 lg:mt-0 lg:mb-0 dark:hover:text-purple-400">
             <NavLink
               to="settings"
               className={({ isActive }) =>

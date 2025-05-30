@@ -19,7 +19,7 @@ export const OrderInfo = ({
     data;
 
   return (
-    <div className="flex justify-between">
+    <div className="flex flex-wrap justify-between gap-x-6 gap-y-8 text-sm sm:text-base">
       {/* CUSTOMER INFO */}
       <div>
         <h2 className="mb-2 text-lg font-semibold">👤 Customer Info</h2>
@@ -53,11 +53,8 @@ export const OrderInfo = ({
         </p>
       </div>
       {/* ORDER STATUS */}
-      <div className="text-gray-500 dark:text-gray-400">
-        <label
-          htmlFor="status"
-          className="mb-1 block font-medium text-zinc-900"
-        >
+      <div>
+        <label htmlFor="status" className="mb-1 block font-medium">
           🚢 Order status
         </label>
         <div className="flex items-center gap-2">
@@ -82,7 +79,7 @@ export const OrderInfo = ({
                 e.target.value as Database["public"]["Enums"]["orderStatus"],
               )
             }
-            className="rounded border border-gray-300 px-2 py-1 disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+            className="rounded border border-gray-300 px-2 py-1 transition duration-500 disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-600 dark:bg-zinc-800 dark:text-white"
             disabled={status === "delivered" || status === "cancelled"}
           >
             <option value="pending">Pending</option>
@@ -94,11 +91,11 @@ export const OrderInfo = ({
         </div>
         <div className="pt-4">
           <p className="font-medium">
-            <span className="font-medium text-zinc-800">Shipped at:</span>{" "}
+            <span className="font-medium">Shipped at:</span>{" "}
             {shippedAt ? format(shippedAt, "d. M. yyyy, HH:mm") : "N/A"}{" "}
           </p>
           <p>
-            <span className="font-medium text-zinc-800">Delivered at:</span>{" "}
+            <span className="font-medium">Delivered at:</span>{" "}
             N/A{" "}
           </p>
         </div>

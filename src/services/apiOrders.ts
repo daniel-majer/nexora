@@ -39,7 +39,6 @@ order_items ( * )
   /* SORT BY */
   if (sortBy) {
     const [field, value] = sortBy.split("-");
-    console.log(field, value);
 
     if (field) {
       query = query.order(field, { ascending: value === "asc" });

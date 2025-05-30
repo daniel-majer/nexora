@@ -1,4 +1,3 @@
-import React from "react";
 import { Modal } from "../../ui/Modal";
 import { Button } from "../../ui/Button";
 import { PlusIcon } from "lucide-react";
@@ -9,7 +8,7 @@ export const AddProduct = () => {
     <Modal>
       <Modal.Open openName="add-product">
         <Button size="md" className="flex items-center gap-2">
-          <PlusIcon size={16}/>
+          <PlusIcon className="size-3 sm:size-4" />
           <span>Add product</span>
         </Button>
       </Modal.Open>

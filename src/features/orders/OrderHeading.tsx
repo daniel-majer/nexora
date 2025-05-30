@@ -10,14 +10,18 @@ export const OrderHeading = ({ paymentStatus }: { paymentStatus: string }) => {
 
   return (
     <>
-      <div className="mb-8 flex items-center justify-between">
-        <Heading level="h1" className="text-4xl font-extrabold tracking-tight">
-          🧾 Order Details
+      <div className="mb-6 flex items-center justify-between sm:mb-8">
+        <Heading
+          level="h1"
+          className="font-extrabold tracking-tight transition duration-500"
+        >
+          <span className="hidden sm:inline">🧾</span>{" "}
+          Order Details
         </Heading>
 
         <Button size="md" onClick={() => navigate(-1)}>
-          <span className="flex gap-2">
-            <ArrowLeftIcon />
+          <span className="flex items-center gap-2">
+            <ArrowLeftIcon className="size-4 sm:size-6" />
             Back
           </span>
         </Button>

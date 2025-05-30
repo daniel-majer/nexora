@@ -17,24 +17,29 @@ import type { Orders } from "../../types/supabase-types";
 
 export const OrderTable = () => {
   const { orders, isLoading, count } = useOrders();
-  console.log(orders);
 
   return (
     <React.Fragment>
-      <div className="ml-auto flex w-full items-center gap-4">
+      <div className="ml-auto flex w-full flex-col items-center gap-4 lg:flex-row">
         <FilterByNameInput />
-        <SortSelect
-          options={deliveryMethodOptions}
-          field="deliveryMethod"
-          value="all"
-        />
-        <SortSelect
-          options={paymentMethodOptions}
-          field="paymentMethod"
-          value="all"
-        />
-        <SortSelect options={statusOptions} field="status" value="all" />
-        <SortSelect options={sortOrders} field="sortBy" value="createdAt-asc" />
+        <div className="grid w-full grid-cols-2 gap-1 sm:grid-cols-4 sm:gap-2">
+          <SortSelect
+            options={deliveryMethodOptions}
+            field="deliveryMethod"
+            value="all"
+          />
+          <SortSelect
+            options={paymentMethodOptions}
+            field="paymentMethod"
+            value="all"
+          />
+          <SortSelect options={statusOptions} field="status" value="all" />
+          <SortSelect
+            options={sortOrders}
+            field="sortBy"
+            value="createdAt-asc"
+          />
+        </div>
       </div>
       <Table
         isLoading={isLoading}

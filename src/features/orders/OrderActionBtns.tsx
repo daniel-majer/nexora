@@ -26,14 +26,14 @@ export const OrderActionBtns = ({
   }
 
   return (
-    <div className="flex justify-end gap-4">
+    <div className="flex justify-end gap-2 sm:gap-4">
       <Modal>
         <Modal.Open openName="cancel">
           <Button
             disabled={status === "delivered" || status === "cancelled"}
             size="md"
             variant="delete"
-            className="rounded-lg border border-red-500 px-5 py-2.5 font-semibold text-red-600"
+            className="rounded-lg border border-red-500 px-2 py-1 font-semibold text-red-600 sm:px-5 sm:py-2.5"
           >
             Cancel Order
           </Button>
@@ -42,7 +42,7 @@ export const OrderActionBtns = ({
           <Button
             disabled={status === "delivered" || status === "cancelled"}
             size="md"
-            className="rounded-lg px-5 py-2.5 font-semibold text-white"
+            className="rounded-lg px-2 py-1 font-semibold text-white sm:px-5 sm:py-2.5"
           >
             Save Changes
           </Button>

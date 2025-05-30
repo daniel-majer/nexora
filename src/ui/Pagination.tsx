@@ -29,7 +29,7 @@ export const Pagination = ({ count }: { count?: number | null }) => {
   }
 
   return (
-    <div className="mt-6 flex items-center justify-between">
+    <div className="mt-6 flex items-center justify-between text-sm sm:text-base">
       <div>
         Showing{" "}
         <span className="font-bold">{(currentPage - 1) * PAGE_SIZE + 1}</span>{" "}
@@ -47,7 +47,7 @@ export const Pagination = ({ count }: { count?: number | null }) => {
           size="sm"
           className="flex items-center gap-2 hover:bg-purple-900 hover:text-white"
         >
-          <ChevronLeftIcon />
+          <ChevronLeftIcon className="size-4 sm:size-6" />
           <span className="">Prev</span>
         </Button>
         <Button
@@ -58,7 +58,7 @@ export const Pagination = ({ count }: { count?: number | null }) => {
           className="flex items-center gap-2 hover:bg-purple-900 hover:text-white"
         >
           <span>Next</span>
-          <ChevronRightIcon />
+          <ChevronRightIcon className="size-4 sm:size-6" />
         </Button>
       </div>
     </div>

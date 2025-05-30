@@ -1,9 +1,4 @@
-import React from "react";
-import type {
-  OrderItems as Items,
-  Orders,
-  Product,
-} from "../../types/supabase-types";
+import type { Orders } from "../../types/supabase-types";
 import { Heading } from "../../ui/Heading";
 import { formatCurrency } from "../../utils/helper";
 import { SHIPPING, TAX_RATE } from "../../types/constants";
@@ -16,16 +11,16 @@ export const OrderItems = ({ data }: { data: Orders }) => {
   console.log(data);
 
   return (
-    <div className="mb-8 rounded-2xl border border-gray-200 bg-white p-6 shadow-md transition duration-500 dark:border-gray-700 dark:bg-zinc-900">
-      <div className="grid grid-cols-3 border-b border-b-zinc-200 text-end font-bold dark:border-b-zinc-700">
-        <Heading level="h2" className="mb-4 text-start text-xl font-semibold">
-          🛒 Ordered Items
+    <div className="mb-4 sm:mb-8 rounded-2xl border border-gray-200 bg-white p-6 text-sm shadow-md transition duration-500 sm:text-base dark:border-gray-700 dark:bg-zinc-900">
+      <div className="grid grid-cols-3 border-b border-b-zinc-200 text-end font-bold transition duration-500 dark:border-b-zinc-700">
+        <Heading level="h2" className="mb-4 text-start text-lg sm:text-xl font-semibold">
+          <span className="hidden sm:inline">🛒</span> Ordered Items
         </Heading>
         <p>Price</p>
         <p>Total</p>
       </div>
 
-      <ul className="divide-y divide-gray-200 dark:divide-gray-700">
+      <ul className="">
         {order_items?.map((item) => {
           if (!item.products) return;
 
@@ -34,7 +29,10 @@ export const OrderItems = ({ data }: { data: Orders }) => {
           } = item;
 
           return (
-            <li key={item.id} className="grid grid-cols-3 py-4">
+            <li
+              key={item.id}
+              className="grid grid-cols-3 border-b border-b-zinc-200 py-4 transition duration-500 last:border-b-0 dark:border-b-zinc-700"
+            >
               <div>
                 <p className="font-medium">{name}</p>
                 <p className="text-gray-500 dark:text-gray-400">
@@ -50,10 +48,10 @@ export const OrderItems = ({ data }: { data: Orders }) => {
         })}
       </ul>
 
-      <div className="mb-6 rounded-lg bg-purple-100 p-4 font-medium transition duration-500 dark:bg-purple-800/20">
-        <div className="flex grow justify-between text-lg">
+      <div className="rounded-lg bg-purple-100 p-2 font-medium transition duration-500  sm:p-4 dark:bg-purple-800/20">
+        <div className="flex grow flex-wrap justify-between gap-x-6 gap-y-2 text-sm sm:text-base lg:text-lg">
           <div>
-            Sutotal:{" "}
+            Subtotal:{" "}
             <span className="font-bold">
               {formatCurrency(totalAmount)}
             </span>{" "}

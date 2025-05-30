@@ -21,16 +21,20 @@ export const Delete = ({
     if (!handle) return;
 
     try {
-      await handle(); // Now properly awaits a Promise
-      close?.(); // Only close on success
+      await handle();
+      close?.();
     } catch (error) {
       console.error("Delete failed:", error);
     }
   };
   return (
     <div>
-      <Heading level="h2">{title}</Heading>
-      <p className="mb-6 text-gray-600">{message}</p>
+      <Heading level="h2" className="dark:text-white">
+        {title}
+      </Heading>
+      <p className="mb-6 text-sm text-gray-600 sm:text-base dark:text-zinc-300">
+        {message}
+      </p>
       <div className="flex space-x-4">
         <Button
           onClick={deleteItem}

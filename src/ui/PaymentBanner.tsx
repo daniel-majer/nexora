@@ -26,7 +26,7 @@ export const PaymentBanner = ({
   const { color, message } = paymentBanner[status];
   return (
     <div
-      className={`mb-6 rounded-lg p-4 font-medium transition duration-500 ${color}`}
+      className={`mb-4 rounded-lg p-2 text-sm font-medium transition duration-500 sm:mb-6 sm:p-4 sm:text-base ${color}`}
     >
       {message}
     </div>
