@@ -1,16 +1,13 @@
-import React from "react";
-import { MenuLogo } from "./MenuLogo";
 import { MenuContent } from "./MenuContent";
 import { MenuFooter } from "./MenuFooter";
-import { DarkModeButton } from "./DarkMode";
+import { MenuLogo } from "./MenuLogo";
 
 export const Sidebar = () => {
   return (
-    <div className="scrollbar-thin scrollbar-thumb-zinc-400 dark:scrollbar-thumb-zinc-700 scrollbar-track-zinc-200 dark:scrollbar-track-zinc-600 flex h-screen min-w-80 w-fit flex-col justify-between gap-6 overflow-auto px-4 py-10 transition duration-500 dark:text-white">
+    <div className="scrollbar-thin scrollbar-thumb-zinc-400 dark:scrollbar-thumb-zinc-700 scrollbar-track-zinc-200 dark:scrollbar-track-zinc-600 flex h-screen w-fit flex-col justify-between overflow-auto px-2 py-4 transition duration-500 lg:w-fit lg:min-w-80 lg:px-4 lg:py-10 dark:text-white">
       <div>
         <MenuLogo />
         <MenuContent />
-        <DarkModeButton />
       </div>
       <MenuFooter />
     </div>
