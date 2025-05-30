@@ -6,7 +6,7 @@ export const MenuFooter = () => {
   const { mutate: logout } = useLogout();
 
   return (
-    <div className="mt-12 leading-5 font-medium transition duration-500">
+    <div className="mt-12 mb-10 leading-5 font-medium transition duration-500 sm:mb-0">
       <Avatar />
       <div
         onClick={() => logout()}

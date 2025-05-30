@@ -22,12 +22,12 @@ export const ToggleButtons = ({ options, field, value }: ToggleProps) => {
   }
 
   return (
-    <div className="inline-flex items-center rounded-md bg-gray-100 p-1 transition duration-500 dark:bg-gray-800">
+    <div className="inline-flex flex-wrap items-center gap-1 rounded-md lg:gap-2 xl:flex-nowrap">
       {options.map((option) => (
         <button
           key={option.value}
           onClick={() => setParam(option.value)}
-          className={`cursor-pointer rounded-md px-4 py-2 text-sm font-medium text-gray-600 transition duration-500 dark:text-gray-300 dark:hover:bg-purple-700 ${param === option.value ? "bg-purple-900 text-white shadow hover:bg-purple-800 dark:bg-purple-700 dark:text-white dark:hover:bg-purple-600" : "text-gray-600 dark:bg-zinc-900 dark:text-white dark:hover:bg-purple-700"}`}
+          className={`cursor-pointer rounded-sm px-2 py-1 text-xs font-medium whitespace-nowrap text-gray-600 transition duration-500 sm:rounded-md sm:px-4 sm:py-2 sm:text-sm dark:text-gray-300 dark:hover:bg-purple-700 ${param === option.value ? "bg-purple-900 text-white shadow hover:bg-purple-800 dark:bg-purple-700 dark:text-white dark:hover:bg-purple-600" : "bg-zinc-100 text-gray-600 dark:bg-zinc-900 dark:text-white dark:hover:bg-purple-700"}`}
         >
           {option.label}
         </button>

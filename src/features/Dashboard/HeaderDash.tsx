@@ -3,12 +3,12 @@ import { ToggleButtons } from "../../ui/ToggleButtons";
 
 export const HeaderDash = () => {
   return (
-    <div className="flex items-end justify-between">
+    <div className="flex flex-col justify-between gap-6 xl:flex-row xl:items-end xl:gap-8">
       <div>
         <Heading level="h1">Dashboard</Heading>
         <Heading
           level="h3"
-          className="mt-2 font-extralight text-zinc-500 dark:text-zinc-300"
+          className="mt-1 font-extralight text-zinc-500 transition duration-500 xl:mt-2 dark:text-zinc-300"
         >
           Get a quick overview of your products, orders, and sales in this
           dashboard.

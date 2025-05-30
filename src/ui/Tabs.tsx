@@ -15,29 +15,24 @@ type TabsProps = {
 
 export const Tabs: React.FC<TabsProps> = ({ options }) => {
   return (
-    <div
-      className={`mt-10 grid gap-6`}
-      style={{
-        gridTemplateColumns: `repeat(${options.length}, minmax(0, 1fr))`,
-      }}
-    >
+    <div className="mt-6 grid grid-cols-1 gap-2 sm:gap-6 lg:mt-10 sm:grid-cols-2 xl:grid-cols-4">
       {options.map((opt) => {
         const Icon = opt.icon;
         return (
           <div
             key={opt.label}
-            className="flex items-center gap-2 rounded-md bg-zinc-100 p-4 dark:bg-zinc-800"
+            className="flex items-center gap-2 rounded-md bg-zinc-100 p-2 transition duration-500 sm:p-4 dark:bg-zinc-900"
           >
             <div
-              className={`flex h-12 w-12 items-center justify-center rounded-full ${opt.colors.bg}`}
+              className={`flex h-8 w-8 items-center justify-center rounded-full sm:h-12 sm:w-12 ${opt.colors.bg}`}
             >
-              <Icon className={`h-6 w-6 ${opt.colors.text}`} />
+              <Icon className={`sm:h-6 h-4 w-4 sm:w-6 ${opt.colors.text}`} />
             </div>
             <div>
-              <span className="block text-sm font-bold text-zinc-500 dark:text-zinc-200">
+              <span className="block text-xs sm:text-sm font-bold text-zinc-500 transition duration-500 dark:text-zinc-200">
                 {opt.label.toLocaleUpperCase()}
               </span>
-              <span className="text-2xl font-semibold text-zinc-900 dark:text-white">
+              <span className="text-xl sm:text-2xl font-semibold wrap-anywhere text-zinc-900 transition duration-500 dark:text-white">
                 {opt.value}
               </span>
             </div>

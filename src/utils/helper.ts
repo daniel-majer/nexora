@@ -1,6 +1,6 @@
 export function removeDiacritics(name?: string) {
   if (!name) return;
-  
+
   return name
     .replaceAll(" ", "")
     .replaceAll("/", "")
@@ -17,5 +17,7 @@ export function formatCurrency(amount: number) {
   return amount.toLocaleString("sk-SK", {
     style: "currency",
     currency: "EUR",
+
+    maximumFractionDigits: 0,
   });
 }

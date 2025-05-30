@@ -10,7 +10,7 @@ export const classNamesMap = {
 
 const sizeClassMap = {
   sm: "text-sm px-3 py-1.5",
-  md: "text-base px-4 py-2 ",
+  md: "text-sm sm:text-base px-2 py-1 sm:px-4 sm:py-2 ",
   lg: "text-lg px-5 py-3",
 };
 

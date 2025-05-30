@@ -15,7 +15,10 @@ export const Heading = ({
   switch (level) {
     case "h1":
       return (
-        <h1 className={`text-4xl font-bold ${className}`} {...rest}>
+        <h1
+          className={`text-2xl font-bold sm:text-3xl lg:text-4xl ${className}`}
+          {...rest}
+        >
           {children}
         </h1>
       );
@@ -27,7 +30,10 @@ export const Heading = ({
       );
     case "h3":
       return (
-        <h3 className={`text-xl font-bold ${className}`} {...rest}>
+        <h3
+          className={`text-base font-bold sm:text-lg lg:text-xl ${className}`}
+          {...rest}
+        >
           {children}
         </h3>
       );

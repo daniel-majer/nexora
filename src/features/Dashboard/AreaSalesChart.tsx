@@ -10,12 +10,18 @@ import {
 import type { Orders } from "../../types/supabase-types";
 import { Heading } from "../../ui/Heading";
 import { eachDayOfInterval, format, isSameDay, subDays } from "date-fns";
+import { useTheme } from "../../context/DarkModeContext";
 
 export const AreaSalesChart = ({ data }: { data: Orders[] }) => {
+  const { theme } = useTheme();
+
   const colors = {
-    totalSales: { stroke: "#4f46e5", fill: "#c7d2fe" },
-    text: "#374151",
-    background: "#fff",
+    totalSales: {
+      stroke: theme === "dark" ? "#fff" : "#6e11b0",
+      fill: theme === "dark" ? "#6e11b0" : "#c7d2fe",
+    },
+    text: theme === "dark" ? "#fff" : "#374151",
+    background: theme === "dark" ? "#18181b" : "#fff",
   };
 
   const allDates = eachDayOfInterval({
@@ -32,13 +38,11 @@ export const AreaSalesChart = ({ data }: { data: Orders[] }) => {
     };
   });
 
-  console.log(allDates, dataSales);
-
   return (
-    <div className="bg-zinc-100 p-6">
+    <div className="mt-8 space-y-6 rounded-md bg-zinc-100 p-4 transition duration-500 lg:p-6 dark:bg-zinc-900">
       <Heading
         level="h4"
-        className="border-b border-b-zinc-200 pb-6 text-zinc-600"
+        className="border-b border-b-zinc-200 pb-3 text-zinc-600 transition duration-500 lg:pb-6 dark:border-b-zinc-700 dark:text-white"
       >
         Sales for last 14 days
       </Heading>
@@ -50,12 +54,16 @@ export const AreaSalesChart = ({ data }: { data: Orders[] }) => {
             tickLine={{ stroke: colors.text }}
           />
           <YAxis
-            unit="$"
+            width={70}
             tick={{ fill: colors.text }}
             tickLine={{ stroke: colors.text }}
+            tickFormatter={(value) => value.toLocaleString() + "€"}
           />
           <CartesianGrid strokeDasharray="4" />
-          <Tooltip contentStyle={{ backgroundColor: colors.background }} />
+          <Tooltip
+            contentStyle={{ backgroundColor: colors.background }}
+            formatter={(value) => value.toLocaleString()}
+          />
           <Area
             dataKey="totalSales"
             type="monotone"
@@ -63,7 +71,8 @@ export const AreaSalesChart = ({ data }: { data: Orders[] }) => {
             fill={colors.totalSales.fill}
             strokeWidth={2}
             name="Total sales"
-            unit="$"
+            unit="€"
+            animationDuration={500}
           />
         </AreaChart>
       </ResponsiveContainer>

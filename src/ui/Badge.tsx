@@ -7,7 +7,8 @@ interface BadgeProps {
   className?: string;
 }
 
-const baseStyles = "inline-block rounded-full px-3 py-0.5 text-xs font-medium";
+const baseStyles =
+  "inline-block rounded-full px-3 py-0.5 text-xs font-medium transition duration-500";
 
 const variantStyles: Record<NonNullable<BadgeProps["variant"]>, string> = {
   primary: "bg-blue-100 text-blue-800",

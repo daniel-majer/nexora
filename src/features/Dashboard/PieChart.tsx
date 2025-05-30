@@ -58,40 +58,53 @@ export const PieChartGraph = ({ data }: { data: Orders[] }) => {
     else if (pieChartData[5]) pieChartData[5].value++ * 102;
   }
 
+  // responsive pie chart
+  const isSmallScreen =
+    typeof window !== "undefined" && window.innerWidth < 640;
+  const innerRadius = isSmallScreen ? 50 : 85;
+  const outerRadius = isSmallScreen ? 80 : 130;
+
   return (
-    <div className="bg-zinc-100 p-6">
+    <div className="rounded-md bg-zinc-100 p-2 transition duration-500 sm:p-4 lg:p-6 dark:bg-zinc-900">
       <Heading
         level="h4"
-        className="border-b border-b-zinc-200 pb-6 text-zinc-600"
+        className="border-b border-b-zinc-200 pb-2 text-zinc-600 transition duration-500 sm:pb-3 lg:pb-6 dark:border-b-zinc-700 dark:text-white"
       >
         Order price breakdown
-      </Heading>{" "}
-      <ResponsiveContainer className="pr-32 pl-10" width="100%" height={320}>
-        <PieChart>
-          <Pie
-            data={pieChartData}
-            nameKey="price"
-            dataKey="value"
-            innerRadius={85}
-            outerRadius={130}
-            cx="40%"
-            cy="50%"
-            paddingAngle={3}
-          >
-            {pieChartData.map((entry) => (
-              <Cell fill={entry.color} stroke={entry.color} key={entry.price} />
-            ))}
-          </Pie>
-          <Tooltip />
-          <Legend
-            verticalAlign="middle"
-            align="right"
-            layout="vertical"
-            iconSize={20}
-            iconType="circle"
-          />
-        </PieChart>
-      </ResponsiveContainer>
+      </Heading>
+
+      <div className="h-56 sm:h-72 lg:h-80">
+        <ResponsiveContainer width="100%" height="100%">
+          <PieChart>
+            <Pie
+              data={pieChartData}
+              nameKey="price"
+              dataKey="value"
+              innerRadius={innerRadius}
+              outerRadius={outerRadius}
+              cx="40%"
+              cy="50%"
+              paddingAngle={3}
+            >
+              {pieChartData.map((entry) => (
+                <Cell
+                  fill={entry.color}
+                  stroke={entry.color}
+                  key={entry.price}
+                />
+              ))}
+            </Pie>
+            <Tooltip />
+            <Legend
+              verticalAlign="middle"
+              align="right"
+              layout="vertical"
+              iconSize={20}
+              iconType="circle"
+            />
+          </PieChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 };

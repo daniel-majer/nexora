@@ -8,10 +8,11 @@ import { PieChartGraph } from "../features/Dashboard/PieChart";
 import { useDashboardOrders } from "../features/Dashboard/useDashboardOrders";
 import type { Orders } from "../types/supabase-types";
 import { AreaSalesChart } from "../features/Dashboard/AreaSalesChart";
+import { Spinner } from "../ui/Spinner";
 
 export const Dashboard = () => {
-  const { data } = useDashboardOrders();
-  if (!data) return;
+  const { data, isLoading } = useDashboardOrders();
+  if (!data || isLoading) return <Spinner />;
 
   const totalSales = data.reduce(
     (sum, order: Orders) => sum + order.totalAmount,
@@ -33,8 +34,6 @@ export const Dashboard = () => {
       total: formatCurrency(order.totalAmount),
     };
   });
-
-  // console.log(data);
 
   return (
     <React.Fragment>
@@ -67,7 +66,7 @@ export const Dashboard = () => {
           },
         ]}
       />
-      <div className="mt-10 grid grid-cols-2 gap-6">
+      <div className="mt-6 grid grid-cols-1 gap-6 md:mt-10 2xl:grid-cols-2">
         <TodayOrders orders={lastOrders} />
         <PieChartGraph data={data} />
       </div>
