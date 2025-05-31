@@ -6,7 +6,6 @@ import {
 } from "../../data/filterOptions";
 import { sortOrders } from "../../data/sortOptions";
 import { orderHeader } from "../../data/table-headers";
-import type { Order } from "../../types/types";
 import { FilterByNameInput } from "../../ui/FilterByNameInput";
 import { Pagination } from "../../ui/Pagination";
 import { SortSelect } from "../../ui/SortSelect";

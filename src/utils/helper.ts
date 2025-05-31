@@ -13,8 +13,8 @@ export function isFileList(value: unknown): value is FileList {
   return value instanceof FileList;
 }
 
-export function formatCurrency(amount: number) {
-  return amount.toLocaleString("sk-SK", {
+export function formatCurrency(amount?: number) {
+  return amount?.toLocaleString("sk-SK", {
     style: "currency",
     currency: "EUR",
 

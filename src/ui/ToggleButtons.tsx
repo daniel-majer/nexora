@@ -29,7 +29,7 @@ export const ToggleButtons = ({ options, field, value }: ToggleProps) => {
           size="md"
           key={option.value}
           onClick={() => setParam(option.value)}
-          className={` ${param === option.value ? "bg-purple-900 text-white shadow hover:bg-purple-800 dark:bg-purple-700 dark:text-white dark:hover:bg-purple-600" : "bg-zinc-100 text-zinc-900 dark:bg-zinc-900 dark:text-white dark:hover:bg-purple-700"}`}
+          className={` ${param === option.value ? "bg-purple-900 text-white shadow hover:bg-purple-800 dark:bg-purple-700 dark:text-white dark:hover:bg-purple-600" : "bg-zinc-100 text-zinc-900 hover:text-white dark:bg-zinc-900 dark:text-white dark:hover:bg-purple-700"}`}
         >
           {option.label}
         </Button>

@@ -13,7 +13,6 @@ import {
 import { NavLink } from "react-router";
 import paypal from "../../assets/paypal-svgrepo-com.svg";
 import { DeliveryMethods, PaymentMethods, Status } from "../../types/constants";
-import type { Order } from "../../types/types";
 import Badge from "../../ui/Badge";
 import Table from "../../ui/Table";
 import { formatCurrency } from "../../utils/helper";

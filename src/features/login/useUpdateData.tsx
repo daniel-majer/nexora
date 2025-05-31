@@ -1,5 +1,4 @@
 import { useMutation } from "@tanstack/react-query";
-import React from "react";
 import { updateUser } from "../../services/apiSignup";
 import type { UserAttributes } from "@supabase/supabase-js";
 

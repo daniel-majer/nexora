@@ -37,7 +37,7 @@ export const Login = () => {
   };
 
   return (
-    <div className="grid h-screen w-screen place-content-center place-items-center p-4 transition-opacity duration-500 ease-in-out sm:p-8 lg:grid-cols-2 dark:bg-gray-900">
+    <div className="grid min-h-screen w-screen place-content-center place-items-center p-4 transition-opacity duration-500 ease-in-out sm:p-8 lg:grid-cols-2 dark:bg-gray-900">
       <div className="hidden lg:block">
         <img src={login} width={700} alt="Login animation" />
       </div>

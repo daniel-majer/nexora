@@ -10,7 +10,7 @@ import {
 } from "recharts";
 
 export const PieChartGraph = ({ data }: { data: Orders[] }) => {
-  let pieChartData = [
+  const pieChartData = [
     {
       price: "0 - 500 €",
       value: 0,

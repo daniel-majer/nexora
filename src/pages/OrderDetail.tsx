@@ -17,8 +17,6 @@ export const OrderDetail = () => {
     }
   }, [data?.status]);
 
-  if (!data) return <p>No data provided!</p>;
-
   if (isPending)
     return (
       <div className="grid h-screen place-items-center">
@@ -26,8 +24,10 @@ export const OrderDetail = () => {
       </div>
     );
 
+  if (!data) return <p>No data provided!</p>;
+
   return (
-    <div className="mx-auto max-w-7xl  text-gray-800 dark:text-gray-100">
+    <div className="mx-auto max-w-7xl text-gray-800 dark:text-gray-100">
       {/* Order Heading */}
       <OrderHeading paymentStatus={data?.paymentStatus} />
 

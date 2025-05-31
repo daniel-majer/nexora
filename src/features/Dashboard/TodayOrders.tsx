@@ -1,4 +1,4 @@
-import { SquareUserIcon, UserCircle2Icon } from "lucide-react";
+import { UserCircle2Icon } from "lucide-react";
 import { NavLink } from "react-router";
 import { Status } from "../../types/constants";
 import Badge from "../../ui/Badge";
@@ -12,7 +12,7 @@ type TodayProps = {
   total: string;
 };
 
-export const TodayOrders = ({ orders }: { orders: TodayProps[] }) => {
+export const TodayOrders = ({ orders }: { orders?: TodayProps[] }) => {
   return (
     <div className="rounded-md bg-zinc-100 p-4 transition duration-500 lg:p-6 dark:bg-zinc-900">
       <Heading
@@ -22,7 +22,7 @@ export const TodayOrders = ({ orders }: { orders: TodayProps[] }) => {
         Last orders
       </Heading>
       <div className="mt-2 space-y-2 xl:mt-4 xl:space-y-3">
-        {orders.map((order) => {
+        {orders?.map((order) => {
           const { status, customer, id, total } = order;
           return (
             <div
@@ -53,7 +53,7 @@ export const TodayOrders = ({ orders }: { orders: TodayProps[] }) => {
                 {total}
               </span>
               <div className="ml-auto">
-                <Button variant="primary" className="">
+                <Button variant="primary">
                   <NavLink to={`/orders/${id}`}>Details</NavLink>
                 </Button>
               </div>

@@ -4,7 +4,7 @@ import { ToggleButtons } from "../../ui/ToggleButtons";
 export const HeaderDash = () => {
   return (
     <div className="flex flex-col justify-between gap-6 xl:flex-row xl:items-end xl:gap-8">
-      <div className="mb-2 border-b border-b-zinc-200 pb-8 transition duration-500 sm:mb-4 dark:border-b-zinc-700">
+      <div className="mb-2  transition duration-500 ">
         <Heading level="h1">Dashboard</Heading>
         <Heading
           level="h3"
