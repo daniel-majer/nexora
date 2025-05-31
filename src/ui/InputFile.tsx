@@ -25,7 +25,7 @@ export const FileUpload = ({
       {label && (
         <label
           htmlFor={name}
-          className="font-medium text-gray-700 dark:text-white"
+          className="font-medium text-gray-700 transition duration-500 dark:text-white"
         >
           {label}
         </label>

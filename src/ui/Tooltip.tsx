@@ -52,7 +52,6 @@ const Toggle = ({ id }: { id: string }) => {
     if (!button) return; // Safety check
 
     const rect = button.getBoundingClientRect();
-    console.log(rect);
 
     setPosition({
       x: window.innerWidth - rect.width - rect.x,
@@ -106,8 +105,6 @@ function Button({
   const { setSelectedId } = useTooltip();
 
   function handleOperation() {
-    console.log("edit");
-
     handle?.();
     setSelectedId(null);
   }

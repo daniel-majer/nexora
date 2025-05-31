@@ -30,7 +30,6 @@ export const UpdateDataForm = () => {
   });
   const { handleSubmit } = methodsUserData;
   function handleDataSubmit(formData: UserForm) {
-    // console.log(formData);
     const isImg = formData.avatar[0]?.name;
     const imgName = `${Math.random()}-${removeDiacritics(formData.avatar[0]?.name)}`;
     const imgPath = isImg
@@ -75,7 +74,7 @@ export const UpdateDataForm = () => {
           sent to your new email address.
         </div>
       )}
-      <div className="rounded-xl bg-zinc-50 p-6">
+      <div className="rounded-xl bg-zinc-50 p-6 transition duration-500 dark:bg-zinc-900">
         <Heading level="h2">Update user data</Heading>
 
         <form

@@ -8,12 +8,13 @@ export const OrderItems = ({ data }: { data: Orders }) => {
   const tax = totalAmount * TAX_RATE;
   const totalIncTax = tax + totalAmount + SHIPPING;
 
-  console.log(data);
-
   return (
-    <div className="mb-4 sm:mb-8 rounded-2xl border border-gray-200 bg-white p-6 text-sm shadow-md transition duration-500 sm:text-base dark:border-gray-700 dark:bg-zinc-900">
+    <div className="mb-4 rounded-2xl border border-gray-200 bg-white p-6 text-sm shadow-md transition duration-500 sm:mb-8 sm:text-base dark:border-gray-700 dark:bg-zinc-900">
       <div className="grid grid-cols-3 border-b border-b-zinc-200 text-end font-bold transition duration-500 dark:border-b-zinc-700">
-        <Heading level="h2" className="mb-4 text-start text-lg sm:text-xl font-semibold">
+        <Heading
+          level="h2"
+          className="mb-4 text-start text-lg font-semibold sm:text-xl"
+        >
           <span className="hidden sm:inline">🛒</span> Ordered Items
         </Heading>
         <p>Price</p>
@@ -48,7 +49,7 @@ export const OrderItems = ({ data }: { data: Orders }) => {
         })}
       </ul>
 
-      <div className="rounded-lg bg-purple-100 p-2 font-medium transition duration-500  sm:p-4 dark:bg-purple-800/20">
+      <div className="rounded-lg bg-purple-100 p-2 font-medium transition duration-500 sm:p-4 dark:bg-purple-800/20">
         <div className="flex grow flex-wrap justify-between gap-x-6 gap-y-2 text-sm sm:text-base lg:text-lg">
           <div>
             Subtotal:{" "}

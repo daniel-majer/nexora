@@ -30,7 +30,7 @@ export const Input = ({
       {label && (
         <label
           htmlFor={name}
-          className="font-medium text-gray-700 dark:text-white"
+          className="font-medium text-gray-700 transition duration-500 dark:text-white"
         >
           {label}
         </label>
@@ -39,7 +39,7 @@ export const Input = ({
         id={name}
         {...register(name, validation)}
         {...rest}
-        className={`rounded-md w-full border px-3 py-2 text-sm transition duration-500 outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 dark:bg-zinc-800 dark:text-white ${className} ${
+        className={`w-full rounded-md border px-3 py-2 text-sm transition duration-500 outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 dark:bg-zinc-800 dark:text-white ${className} ${
           error ? "border-red-500" : "border-gray-300"
         }`}
       />

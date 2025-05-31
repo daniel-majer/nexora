@@ -36,7 +36,6 @@ export const AddProductForm = ({
   });
 
   const { handleSubmit } = methods;
-  console.log(product);
   function onSubmit(data: Product) {
     if (product?.id) {
       return mutate(
@@ -59,7 +58,7 @@ export const AddProductForm = ({
 
   return (
     <FormProvider {...methods}>
-      <div className="mb-4 flex whitespace-nowrap items-center justify-between border-b border-b-zinc-200 pb-4">
+      <div className="mb-4 flex items-center justify-between border-b border-b-zinc-200 pb-4 whitespace-nowrap">
         <Heading level="h2" className="dark:text-white">
           {product?.id ? "Update product" : "Add new product"}
         </Heading>

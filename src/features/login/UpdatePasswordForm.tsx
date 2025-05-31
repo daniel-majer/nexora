@@ -37,7 +37,7 @@ export const UpdatePasswordForm = () => {
   }
   return (
     <FormProvider {...methodsPassword}>
-      <div className="rounded-xl bg-zinc-50 p-6">
+      <div className="rounded-xl bg-zinc-50 p-6 transition duration-500 dark:bg-zinc-900">
         <Heading level="h2">Update password</Heading>
         <form
           onSubmit={handlePassSubmit(handlePasswordSubmit, onError)}

@@ -10,13 +10,14 @@ export async function login(data: { email: string; password: string }) {
 }
 
 export async function getUser() {
-  const { data: session } = await supabase.auth.getSession();
+  const { data: session, error: sessionError } =
+    await supabase.auth.getSession();
 
-  if (!session.session) return null;
+  if (sessionError || !session.session) return null;
 
   const { data, error } = await supabase.auth.getUser();
 
-  if (error) throw new Error("Could not authenticated");
+  if (error) throw new Error("Could not authenticate");
 
   return data.user;
 }

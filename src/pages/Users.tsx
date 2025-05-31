@@ -28,7 +28,6 @@ export const Users = () => {
   const { handleSubmit, getValues, reset } = methods;
 
   function onSubmit(formData: UserForm) {
-    console.log(formData);
     const data = {
       email: formData.email,
       password: formData.password,
@@ -53,20 +52,22 @@ export const Users = () => {
 
   return (
     <div>
-      <Heading level="h1">Create new user</Heading>
-      <Heading
-        level="h3"
-        className="mt-2 mb-6 font-extralight text-zinc-500 transition duration-500 dark:text-zinc-300"
-      >
-        Fill out the form below to create a new user account. Enter the required
-        details and submit to add a user to the system.
-      </Heading>
+      <div className="mb-4 border-b border-b-zinc-200 pb-8 transition duration-500 sm:mb-6 dark:border-b-zinc-700">
+        <Heading level="h1">Create new user</Heading>
+        <Heading
+          level="h3"
+          className="mt-2 font-extralight text-zinc-500 transition duration-500 dark:text-zinc-300"
+        >
+          Fill out the form below to create a new user account. Enter the
+          required details and submit to add a user to the system.
+        </Heading>
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr]">
         <FormProvider {...methods}>
           <form
             onSubmit={handleSubmit(onSubmit, onError)}
-            className="mt-2 flex w-full flex-col gap-2 rounded-xl py-4 font-medium sm:gap-4"
+            className="mt-2 flex w-full flex-col gap-2 self-start rounded-lg bg-zinc-50 p-3 px-4 font-medium sm:gap-4 sm:rounded-xl sm:p-4 sm:px-6 md:justify-self-start dark:bg-zinc-900"
           >
             <div className="flex items-center justify-between">
               <Input

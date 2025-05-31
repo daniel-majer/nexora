@@ -1,4 +1,3 @@
-import React from "react";
 import login from "../assets/login.svg";
 import { Heading } from "../ui/Heading";
 import { LoginFooter } from "../features/login/LoginFooter";
@@ -16,7 +15,6 @@ type LoginType = {
 };
 
 export const Login = () => {
-  const [visible, setVisible] = React.useState(false);
   const { mutate, isPending } = useLogin();
   const navigate = useNavigate();
 
@@ -25,18 +23,11 @@ export const Login = () => {
     mode: "onChange",
   });
 
-  const {
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = methods;
+  const { handleSubmit } = methods;
 
   const onSubmit = (formData: LoginType) => {
     mutate(formData, {
-      onSuccess: (data) => {
-        // reset({ email: "", password: "" });
-        console.log(data);
-
+      onSuccess: () => {
         navigate("/", { replace: true });
       },
       onError: () => {
@@ -45,26 +36,17 @@ export const Login = () => {
     });
   };
 
-  React.useEffect(() => {
-    const timer = setTimeout(() => setVisible(true), 200);
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
-    <div
-      className={`flex h-screen w-screen items-center justify-center gap-60 p-8 transition-opacity duration-700 ease-in-out dark:bg-gray-900 ${
-        visible ? "opacity-100" : "opacity-0"
-      }`}
-    >
-      <div className="">
-        <img src={login} width={700} alt="" />
+    <div className="grid h-screen w-screen place-content-center place-items-center p-4 transition-opacity duration-500 ease-in-out sm:p-8 lg:grid-cols-2 dark:bg-gray-900">
+      <div className="hidden lg:block">
+        <img src={login} width={700} alt="Login animation" />
       </div>
 
-      <div className="grid gap-8">
-        <div className="m-2 rounded-[20px] border-2 border-purple-800 bg-white shadow-lg sm:p-2 md:p-10 lg:p-10 xl:p-10 2xl:p-10 dark:bg-gray-900">
+      <div className="grid max-w-lg justify-center gap-8 self-start">
+        <div className="rounded-2xl border-2 border-purple-800 bg-white p-6 shadow-lg sm:p-10 dark:bg-gray-900">
           <Heading
             level="h1"
-            className="cursor-default pt-8 pb-6 text-center text-5xl font-bold dark:text-gray-400"
+            className="cursor-default pt-4 pb-3 text-center text-4xl! font-bold sm:pt-8 sm:pb-6 sm:text-5xl! dark:text-gray-400"
           >
             Log in
           </Heading>
@@ -90,7 +72,7 @@ export const Login = () => {
               </a>
               <Button
                 disabled={isPending}
-                className="mt-6 w-full rounded-lg bg-purple-500 p-2 text-white shadow-lg transition duration-300 ease-in-out hover:scale-105 hover:from-purple-500 hover:to-blue-500 dark:text-gray-300"
+                className="mt-6 w-full rounded-lg bg-purple-500 py-2 text-white shadow-lg transition duration-300 ease-in-out hover:scale-105 hover:from-purple-500 hover:to-blue-500 dark:text-gray-300"
                 type="submit"
               >
                 {isPending ? <SpinnerMini /> : "LOG IN"}
@@ -102,7 +84,6 @@ export const Login = () => {
               Account creation is available only within the app.
             </h3>
           </div>
-          {/*  <!-- Third Party Authentication Options --> */}
           <LoginFooter />
         </div>
       </div>
