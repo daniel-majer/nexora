@@ -14,7 +14,9 @@ export const useLogout = () => {
       navigate("/login", { replace: true });
       toast.success("Logged out successfully");
     },
-    onError: (e) => toast.error(e.message),
+    onError: (error: Error) => {
+      toast.error(error.message);
+    },
   });
 
   return { mutate, isPending };
