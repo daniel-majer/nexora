@@ -74,11 +74,11 @@ export async function deleteProducts({ products }: { products: string[] }) {
     .in("productId", products);
 
   if (orderItemsError) {
-    console.error("Chyba pri mazani order_items:", orderItemsError);
+    console.error("Error during deleting:", orderItemsError);
     throw orderItemsError;
   }
 
   const { error } = await supabase.from("products").delete().in("id", products);
 
-  if (error) console.error("Chyba pri mazani:", error);
+  if (error) console.error("Error during deleting:", error);
 }
