@@ -25,8 +25,8 @@ export const AreaSalesChart = ({ data }: { data: Orders[] }) => {
   };
 
   const allDates = eachDayOfInterval({
-    start: subDays(new Date(), 14),
-    end: new Date(),
+    start: subDays(new Date(2025, 5, 1), 14),
+    end: new Date(2025, 4, 2),
   });
 
   const dataSales = allDates.map((date) => {
