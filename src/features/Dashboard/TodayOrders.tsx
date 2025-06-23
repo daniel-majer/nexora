@@ -53,9 +53,9 @@ export const TodayOrders = ({ orders }: { orders?: TodayProps[] }) => {
                 {total}
               </span>
               <div className="ml-auto">
-                <Button variant="primary">
-                  <NavLink to={`/orders/${id}`}>Details</NavLink>
-                </Button>
+                <NavLink to={`/orders/${id}`}>
+                  <Button variant="primary">Details</Button>
+                </NavLink>
               </div>
             </div>
           );
